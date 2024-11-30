@@ -130,7 +130,12 @@
     <div class="container">
         <header>
             <img src="windows1.png" alt="Logo" class="logo">
-            <h1>云散皆星河</h1>
+            <h1 data-translate="site-title">云散皆星河</h1>
+            <select id="languageSelector" onchange="changeLanguage(this.value)">
+                <option value="zh-CN" selected>中文</option>
+                <option value="en">English</option>
+                <option value="zh-TW">繁體中文</option>
+            </select>
         </header>
         <nav>
             <a href="https://www.bilibili.com/opus/1005275797608464388" target="_blank">关于</a>
@@ -138,21 +143,65 @@
             <a href="https://qm.qq.com/q/ekdF63GJUs" target="_blank">粉丝群</a>
         </nav>
         <div class="content">
-            <p>云散皆星河--一个专注于破解电子教室的UP主</p>
-            <h2 id="software">软件下载</h2>
+            <p data-translate="intro">云散皆星河--一个专注于破解电子教室的UP主</p>
+            <h2 id="software" data-translate="software-title">软件下载</h2>
             <ul class="software-list">
-                <li><a href="http://api.mmp.cc/api/lanzou?type=down&url=https://wwil.lanzoul.com/i9NmW2eohwni&pwd=5am1" class="download-link">秒杀电子教室软件下载(最小化版,目前仅支持极域)</a></li>
-                <li><a href="http://api.mmp.cc/api/lanzou?type=down&url=https://wwil.lanzoul.com/iC1S72f9h47a&pwd=bwk5" class="download-link">秒杀电子教室软件下载(露头就秒版,通杀所有电子教室)</a></li>
-                <li><a href="https://wwil.lanzoul.com/b00jdulwli" class="download-link">蓝奏云软件下载,密码:1rq1(备用)</a></li>
+                <li><a href="http://api.mmp.cc/api/lanzou?type=down&url=https://wwil.lanzoul.com/i9NmW2eohwni&pwd=5am1" class="download-link" data-translate="software1">秒杀电子教室软件下载(最小化版,目前仅支持极域)</a></li>
+                <li><a href="http://api.mmp.cc/api/lanzou?type=down&url=https://wwil.lanzoul.com/iC1S72f9h47a&pwd=bwk5" class="download-link" data-translate="software2">秒杀电子教室软件下载(露头就秒版,通杀所有电子教室)</a></li>
+                <li><a href="https://wwil.lanzoul.com/b00jdulwli" class="download-link" data-translate="software3">蓝奏云软件下载,密码:1rq1(备用)</a></li>
             </ul>
             <img src="image.jpg" alt="Software Image" class="image-frame">
-            <h2 id="group">粉丝群</h2>
-            <p>加入QQ粉丝群，与UP主互动：</p>
+            <h2 id="group" data-translate="group-title">粉丝群</h2>
+            <p data-translate="group-intro">加入QQ粉丝群，与UP主互动：</p>
             <a href="https://qm.qq.com/q/ekdF63GJUs" class="join-group-btn" target="_blank">加入粉丝群</a>
         </div>
         <footer>
             <p>版权所有 &copy; 2024 云散皆星河</p>
         </footer>
     </div>
-</body>
-</html>
+    <script>
+        const translations = {
+            'zh-CN': {
+                'site-title': '云散皆星河',
+                'intro': '云散皆星河--一个专注于破解电子教室的UP主',
+                'software-title': '软件下载',
+                'software1': '秒杀电子教室软件下载(最小化版,目前仅支持极域)',
+                'software2': '秒杀电子教室软件下载(露头就秒版,通杀所有电子教室)',
+                'software3': '蓝奏云软件下载,密码:1rq1(备用)',
+                'group-title': '粉丝群',
+                'group-intro': '加入QQ粉丝群，与UP主互动：'
+            },
+            'en': {
+                'site-title': 'Scattered Clouds, All Stars',
+                'intro': 'Scattered Clouds, All Stars - A UP master focused on cracking electronic classrooms',
+                'software-title': 'Software Download',
+                'software1': 'Download Crack for Electronic Classroom (Minimized Version, currently supports only JY)',
+                'software2': 'Download Crack for Electronic Classroom (Pop-up Kill Version, kills all electronic classrooms)',
+                'software3': 'Download software from Lanzou Cloud, password: 1rq1 (backup)',
+                'group-title': 'Fan Group',
+                'group-intro': 'Join the QQ fan group to interact with the UP master:'
+            },
+            'zh-TW': {
+                'site-title': '雲散皆星河',
+                'intro': '雲散皆星河--一個專注於破解電子教室的UP主',
+                'software-title': '軟體下載',
+                'software1':'秒杀電子教室軟體下載(最小化版,目前僅支援極域)',
+'software2': '秒杀電子教室軟體下載(露頭就秒版,通殺所有電子教室)',
+'software3': '藍奏雲軟體下載,密碼:1rq1(備用)',
+'group-title': '粉絲群',
+'group-intro': '加入QQ粉絲群，與UP主互動：'
+}
+};
+
+    function changeLanguage(lang) {
+        const elements = document.querySelectorAll('[data-translate]');
+        elements.forEach(el => {
+            const key = el.getAttribute('data-translate');
+            el.textContent = translations[lang][key] || key;
+        });
+        document.documentElement.lang = lang;
+    }
+
+    // Set the default language
+    changeLanguage('zh-CN');
+</script>
