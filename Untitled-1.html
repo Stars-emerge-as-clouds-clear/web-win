@@ -33,6 +33,11 @@
             margin: 0;
             font-weight: 700;
         }
+        .logo {
+            width: 100px; /* Logo宽度 */
+            height: auto; /* Logo高度 */
+            margin-bottom: 10px; /* Logo下方的间距 */
+        }
         nav {
             display: flex;
             justify-content: center;
@@ -98,6 +103,11 @@
         .software-list li:hover {
             background-color: #d1d9e6;
         }
+        .image-frame {
+            width: 100%; /* 图片框宽度 */
+            height: auto; /* 图片框高度 */
+            margin-top: 20px; /* 图片框上方的间距 */
+        }
         .join-group-btn {
             display: inline-block;
             background-color: #1e40af;
@@ -114,29 +124,12 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             transform: translateY(-2px);
         }
-        /* 新增的优化样式 */
-        header h1 {
-            font-size: 2.5em; /* 增大标题字体大小 */
-        }
-        nav a {
-            font-weight: 500; /* 增加导航链接的字体重量 */
-        }
-        .content p {
-            font-weight: 400; /* 正文字体重量 */
-        }
-        .join-group-btn {
-            border: none; /* 移除按钮边框 */
-            outline: none; /* 移除按钮轮廓 */
-            cursor: pointer; /* 鼠标悬停时显示指针 */
-        }
-        footer {
-            font-size: 0.9em; /* 减小页脚字体大小 */
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
+            <img src="/windows1.png" alt="Logo" class="logo">
             <h1>云散皆星河</h1>
         </header>
         <nav>
@@ -152,6 +145,7 @@
                 <li><a href="http://api.mmp.cc/api/lanzou?type=down&url=https://wwil.lanzoul.com/iC1S72f9h47a&pwd=bwk5" class="download-link">秒杀电子教室软件下载(露头就秒版,通杀所有电子教室)</a></li>
                 <li><a href="https://wwil.lanzoul.com/b00jdulwli" class="download-link">蓝奏云软件下载,密码:1rq1(备用)</a></li>
             </ul>
+            <img src="/image.png" alt="Software Image" class="image-frame">
             <h2 id="group">粉丝群</h2>
             <p>加入QQ粉丝群，与UP主互动：</p>
             <a href="https://qm.qq.com/q/ekdF63GJUs" class="join-group-btn" target="_blank">加入粉丝群</a>
