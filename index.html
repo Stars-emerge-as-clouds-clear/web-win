@@ -124,6 +124,39 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             transform: translateY(-2px);
         }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 200px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            display: none;
+        }
+        .popup img {
+            width: 100px;
+            height: 100px;
+        }
+        .popup .content {
+            margin-left: 20px;
+        }
+        .popup .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ccc;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -131,6 +164,11 @@
         <header>
             <img src="windows1.png" alt="Logo" class="logo">
             <h1 data-translate="site-title">云散皆星河</h1>
+            <select id="languageSelector" onchange="changeLanguage(this.value)">
+                <option value="zh-CN" selected>中文</option>
+                <option value="en">English</option>
+                <option value="zh-TW">繁體中文</option>
+            </select>
         </header>
         <nav>
             <a href="https://www.bilibili.com/opus/1005275797608464388" target="_blank">关于</a>
@@ -154,6 +192,14 @@
             <p>版权所有 &copy; 2024 云散皆星河</p>
         </footer>
     </div>
+    <div class="popup" id="popup">
+        <img src="popup-image.jpg" alt="Popup Image">
+        <div class="content">
+            <h2>欢迎访问！</h2>
+            <p>您选择的是繁体中文。</p>
+        </div>
+        <button class="close" onclick="document.getElementById('popup').style.display='none'">关闭</button>
+    </div>
     <script>
         const translations = {
             'zh-CN': {
@@ -161,27 +207,27 @@
                 'intro': '云散皆星河--一个专注于破解电子教室的UP主',
                 'software-title': '软件下载',
                 'software1': '秒杀电子教室软件下载(最小化版,目前仅支持极域)',
-                'software2': '秒杀电子教室软件下载(露头就秒版,通杀所有电子教室)',
-                'software3': '蓝奏云软件下载,密码:1rq1(备用)',
-                'group-title': '粉丝群',
-                'group-intro': '加入QQ粉丝群，与UP主互动：'
-            },
-            'en': {
-                'site-title': 'Scattered Clouds, All Stars',
-                'intro': 'Scattered Clouds, All Stars - A UP master focused on cracking electronic classrooms',
-                'software-title': 'Software Download',
-                'software1': 'Download Crack for Electronic Classroom (Minimized Version, currently supports only JY)',
-                'software2': 'Download Crack for Electronic Classroom (Pop-up Kill Version, kills all electronic classrooms)',
-                'software3': 'Download software from Lanzou Cloud, password: 1rq1 (backup)',
-                'group-title': 'Fan Group',
-                'group-intro': 'Join the QQ fan group to interact with the UP master:'
-            },
-            'zh-TW': {
-                'site-title': '雲散皆星河',
-                'intro': '雲散皆星河--一個專注於破解電子教室的UP主',
-                'software-title': '軟體下載',
-                'software1': '秒杀電子教室軟體下載(最小化版,目前僅支援極域)',
-                'software2': '秒杀電子教室軟體下載(露頭就秒版,通殺所有電子教室)',
+'software2': '秒杀电子教室软件下载(露头就秒版,通杀所有电子教室)',
+'software3': '蓝奏云软件下载,密码:1rq1(备用)',
+'group-title': '粉丝群',
+'group-intro': '加入QQ粉丝群，与UP主互动：'
+},
+'en': {
+'site-title': 'Scattered Clouds, All Stars',
+'intro': 'Scattered Clouds, All Stars - A UP master focused on cracking electronic classrooms',
+'software-title': 'Software Download',
+'software1': 'Download Crack for Electronic Classroom (Minimized Version, currently supports only JY)',
+'software2': 'Download Crack for Electronic Classroom (Pop-up Kill Version, kills all electronic classrooms)',
+'software3': 'Download software from Lanzou Cloud, password: 1rq1 (backup)',
+'group-title': 'Fan Group',
+'group-intro': 'Join the QQ fan group to interact with the UP master:'
+},
+'zh-TW': {
+'site-title': '雲散皆星河',
+'intro': '雲散皆星河--一個專注於破解電子教室的UP主',
+'software-title': '軟體下載',
+'software1': '秒杀電子教室軟體下載(最小化版,目前僅支援極域)',
+'software2': '秒杀電子教室軟體下載(露頭就秒版,通殺所有電子教室)',
 'software3': '藍奏雲軟體下載,密碼:1rq1(備用)',
 'group-title': '粉絲群',
 'group-intro': '加入QQ粉絲群，與UP主互動：'
@@ -195,24 +241,25 @@
             el.textContent = translations[lang][key] || key;
         });
         document.documentElement.lang = lang;
+        if (lang === 'zh-TW') {
+            document.getElementById('popup').style.display = 'block';
+        } else {
+            document.getElementById('popup').style.display = 'none';
+        }
     }
 
     function detectLanguage() {
-        const userLang = navigator.language || navigator.userLanguage; // 获取用户语言
-        let lang = userLang.split('-')[0]; // 获取主要语言代码
+        const userLang = navigator.language || navigator.userLanguage;
+        let lang = userLang.split('-')[0];
         if (lang === 'zh' && userLang.includes('TW')) {
-            lang = 'zh-TW'; // 检测是否为繁体中文
+            lang = 'zh-TW';
         } else if (lang === 'en') {
-            lang = 'en'; // 检测是否为英文
+            lang = 'en';
         } else {
-            lang = 'zh-CN'; // 默认为简体中文
+            lang = 'zh-CN';
         }
         changeLanguage(lang);
-        if (lang === 'zh-TW') {
-            alert('您选择的是繁体中文，欢迎访问！');
-        }
     }
 
-    // 页面加载时自动检测语言
     window.addEventListener('DOMContentLoaded', detectLanguage);
 </script>
