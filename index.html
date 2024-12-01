@@ -158,6 +158,44 @@
             padding: 5px;
             cursor: pointer;
         }
+
+        /* 手机版样式 */
+        @media (max-width : 1002px ){
+            .container {
+                margin: 10px;
+                padding: 10px;
+            }
+            header {
+                padding: 10px;
+            }
+            .logo {
+                width: 80px; /* 调整Logo大小 */
+            }
+            nav {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+            nav a {
+                margin: 5px 0;
+                padding: 12px 10px;
+            }
+            .content p {
+                font-size: 16px;
+            }
+            .software-list li {
+                padding: 8px;
+            }
+            .join-group-btn {
+                padding: 8px 15px;
+            }
+            .image-frame {
+                margin-top: 10px;
+            }
+            .popup {
+                width: 90%;
+                height: auto;
+            }
+        }
     </style>
 </head>
 <body>
@@ -187,24 +225,24 @@
             <img src="image.jpg" alt="Software Image" class="image-frame" id="software-image">
             <h2 id="group" data-translate="group-title">粉丝群</h2>
             <p data-translate="group-intro">加入QQ粉丝群，与UP主互动：</p>
-            <a href="https://qm.qq.com/q/ekdF63GJUs" class="join-group-btn" target="_blank">加入粉丝群</a>
-        </div>
-        <footer>
-            <p>版权所有 &copy; 2024 云散皆星河</p>
-        </footer>
-    </div>
-    <div class="popup" id="popup">
-        <img src="https://ts1.cn.mm.bing.net/th/id/R-C.d3d2adf95ae1739138c8a7db3ad4c6ae?rik=EQtYzg%2bRq%2fZU%2fQ&riu=http%3a%2f%2fimg.ycnews.cn%2fa%2f10001%2f201907%2f469a123e51b7b69b232e75b394fe7d0f.jpeg&ehk=HbHA%2fRXOGDfrT476AaNhBVZPwomBI0%2biKcD4av1NgU0%3d&risl=&pid=ImgRaw&r=0" alt="Popup Image">
-                <div class="content">
-            <h2>欢迎访问！</h2>
-            <p>中国台湾的同志,您好</p>
-        </div>
-        <button class="close" onclick="document.getElementById('popup').style.display='none'">关闭</button>
-    </div>
-    <script>
-        const translations = {
-            'zh-CN': {
-                'site-title':'云散皆星河',
+            <a href="https://qm.qq.com/q/ekdF63GJUs"class="join-group-btn" target="_blank">加入粉丝群</a>
+</div>
+<footer>
+<p>版权所有 © 2024 云散皆星河</p>
+</footer>
+</div>
+<div class="popup" id="popup">
+<img src="https://ts1.cn.mm.bing.net/th/id/R-C.d3d2adf95ae1739138c8a7db3ad4c6ae?rik=EQtYzg%2bRq%2fZU%2fQ&riu=http%3a%2f%2fimg.ycnews.cn%2fa%2f10001%2f201907%2f469a123e51b7b69b232e75b394fe7d0f.jpeg&ehk=HbHA%2fRXOGDfrT476AaNhBVZPwomBI0%2biKcD4av1NgU0%3d&risl=&pid=ImgRaw&r=0" alt="Popup Image">
+<div class="content">
+<h2>欢迎访问！</h2>
+<p>中国台湾的同志,您好</p>
+</div>
+<button class="close" onclick="document.getElementById('popup').style.display='none'">关闭</button>
+</div>
+<script>
+const translations = {
+'zh-CN': {
+'site-title':'云散皆星河',
 'intro': '云散皆星河--一个专注于破解电子教室的UP主',
 'software-title': '软件下载',
 'software1': '秒杀电子教室软件下载(最小化版,目前仅支持极域)',
@@ -243,7 +281,7 @@
         });
         document.documentElement.lang = lang;
         if (lang === 'zh-TW') {
-            document.getElementById('software-image').src = 'https://ts1.cn.mm.bing.net/th/id/R-C.d3d2adf95ae1739138c8a7db3ad4c6ae?rik=EQtYzg%2bRq%2fZU%2fQ&riu=http%3a%2f%2fimg.ycnews.cn%2fa%2f10001%2f201907%2f469a123e51b7b69b232e75b394fe7d0f.jpeg&ehk=HbHA%2fRXOGDfrT476AaNhBVZPwomBI0%2biKcD4av1NgU0%3d&risl=&pid=ImgRaw&r=0';
+            document.getElementById('software-image').src = 'https://ts1.cn.mm.bing.net/th/id/R-C.d3d2adf95ae1739138c8a7db3ad4c6ae?rik=EQtYzg%2bRq%2fZU%2fQ&riu=http%3a%2f%2fimg.ycnews.cn%2fa%2f10001%2f201907%2f469a123e51b7b69b232e75b394fe7d0f.jpeg&ehk=HbHA%2fRXOGDfrT476AaNhBVZPwomBI0%2biKcD4av1NgU0%3d&risl=&pid=ImgRaw&r=0'; 
             document.getElementById('popup').style.display = 'block';
         } else {
             document.getElementById('software-image').src = 'image.jpg';
