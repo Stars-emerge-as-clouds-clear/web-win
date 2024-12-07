@@ -6,109 +6,62 @@
     <title>云散皆星河 - 官网</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body {
+        body, html {
             font-family: 'Noto Sans SC', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f4f8;
-            color: #333;
-            transition: background-color 0.3s;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            transition: background-color 0.5s ease;
         }
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2em;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            position: relative;
+        }
+        section.active {
+            opacity: 1;
         }
         header {
-            text-align: center;
-            padding: 20px;
-            background-color: #1e40af;
-            color: #fff;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 1em;
+            background-color: rgba(255, 255, 255, 0.9);
+            z-index: 100;
         }
         header h1 {
             margin: 0;
-            font-weight: 700;
         }
         .logo {
-            width: 100px; /* Logo宽度 */
-            height: auto; /* Logo高度 */
-            margin-bottom: 10px; /* Logo下方的间距 */
+            width: 100px;
+            height: auto;
         }
         nav {
-            display: flex;
-            justify-content: center;
-            padding: 20px 0;
-            background-color: #eef2f7;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        nav a {
-            text-decoration: none;
-            color: #333;
-            padding: 10px 15px;
-            margin: 0 10px;
-            border-radius: 4px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        nav a:hover {
-            background-color: #d1d9e6;
-            color: #1e40af;
-        }
-        .content {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .content p {
-            font-size: 18px;
-            color: #666;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
+            display: none;
         }
         footer {
-            text-align: center;
-            padding: 20px 0;
-            background-color: #1e40af;
-            color: #fff;
-            margin-top: 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 1em;
+            background-color: rgba(255, 255, 255, 0.9);
         }
-        .download-link {
-            display: block;
-            margin: 10px 0;
-            color: #1e40af;
-            text-decoration: none;
-            font-weight: 700;
-            transition: color 0.3s;
+        footer p {
+            margin: 0;
         }
-        .download-link:hover {
-            color: #003580;
-        }
-        .software-list {
-            list-style: none;
-            padding: 0;
-            margin: 0 auto;
-            max-width: 600px;
-        }
-        .software-list li {
-            margin-bottom: 10px;
-            background-color: #eef2f7;
-            padding: 10px;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-        .software-list li:hover {
-            background-color: #d1d9e6;
-        }
-        .image-frame {
-            width: 100%; /* 图片框宽度 */
-            height: auto; /* 图片框高度 */
-            margin-top: 20px; /* 图片框上方的间距 */
-        }
-        .join-group-btn {
+        .button {
             display: inline-block;
             background-color: #1e40af;
             color: white;
@@ -119,241 +72,107 @@
             transition: background-color 0.3s, transform 0.3s;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        .join-group-btn:hover {
+        .button:hover {
             background-color: #003580;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             transform: translateY(-2px);
         }
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 500px;
-            height: 704px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            padding-bottom:120px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            z-index: 100;
-            display: none;
-        }
-        .popup img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .popup .content {
-            margin-left: 20px;
-        }
-        .popup .close {
+        .image-frame {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #ccc;
-            border: none;
-            padding: 5px;
-            cursor: pointer;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 300px;
+            background-size: cover;
+            transition: opacity 0.5s ease;
+            opacity: 0;
         }
-
+        section.active .image-frame {
+            opacity: 1;
+        }
+        /* 渐变色 */
+        .gradient-1 {
+            background: linear-gradient(to bottom right, #fccd57, #ef902e);
+        }
+        .gradient-2 {
+            background: linear-gradient(to bottom right, #57fccd, #2eef90);
+        }
+        .gradient-3 {
+            background: linear-gradient(to bottom right, #c95cfc, #f0c9fc);
+        }
         /* 手机版样式 */
-        @media (max-width : 1002px ){
-            .container {
-                margin: 10px;
-                padding: 10px;
-            }
-            header {
-                padding: 10px;
+        @media (max-width: 768px) {
+            section {
+                padding: 1em;
             }
             .logo {
-                width: 80px; /* 调整Logo大小 */
-            }
-            nav {
-                flex-direction: column;
-                padding: 10px 0;
-            }
-            nav a {
-                margin: 5px 0;
-                padding: 12px 10px;
-            }
-            .content p {
-                font-size: 16px;
-            }
-            .software-list li {
-                padding: 8px;
-            }
-            .join-group-btn {
-                padding: 8px 15px;
+                width: 80px;
             }
             .image-frame {
-                margin-top: 10px;
-            }
-            .popup {
-                width: 90%;
-                height: auto;
-            }
-        }
-
-        /* 添加动画效果 */
-        @keyframes blurAndSharp {
-            0% {
-                filter: blur(5px);
-                opacity: 0.5;
-            }
-            100% {
-                filter: blur(0);
-                opacity: 1;
-            }
-        }
-
-        /* 用于模糊效果 */
-        .blur-effect {
-            animation: blurAndSharp 2s forwards;
-        }
-
-        /* Logo居中动画 */
-        .logo-center {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: logoCenter 2s forwards;
-        }
-
-        @keyframes logoCenter {
-            0% {
-                transform: translate(-50%, -50%) scale(1);
-            }
-            50% {
-                transform: translate(-50%, -50%) scale(1.5);
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(1);
+                height: 200px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container blur-effect">
-        <header>
-            <img src="windows1.gif" alt="Logo" class="logo logo-center">
-            <h1 data-translate="site-title">云散皆星河</h1>
-            <select id="languageSelector" onchange="changeLanguage(this.value)">
-                <option value="zh-CN" selected>中文</option>
-                <option value="en">English</option>
-                <option value="zh-TW">繁體中文</option>
-            </select>
-        </header>
-        <nav>
-            <a href="https://www.bilibili.com/opus/1005275797608464388" target="_blank">关于</a>
-            <a href="https://space.bilibili.com/3494352290581232" target="_blank">视频</a>
-            <a href="https://qm.qq.com/q/ekdF63GJUs" target="_blank">粉丝群</a>
-        </nav>
-        <div class="content">
-            <p data-translate="intro">云散皆星河--一个专注于破解电子教室的UP主</p>
-            <h2 id="software" data-translate="software-title">软件下载</h2>
-            <ul class="software-list">
-                <li><a href="http://api.mmp.cc/api/lanzou?type=down&url=https://wwil.lanzoul.com/i9NmW2eohwni&pwd=5am1" class="download-link" data-translate="software1">秒杀电子教室软件下载(最小化版,目前仅支持极域)</a></li>
-                <li><a href="http://api.mmp.cc/iC1S72f9h47a&pwd=bwk5" class="download-link" data-translate="software2">秒杀电子教室软件下载(露头就秒版,通杀所有电子教室)</a></li>
-                <li><a href="https://wwil.lanzoul.com/b00jdulwli" class="download-link" data-translate="software3">蓝奏云软件下载,密码:1rq1(备用)</a></li>
-            </ul>
-            <img src="image.jpg" alt="Software Image" class="image-frame" id="software-image">
-            <h2 id="group" data-translate="group-title">粉丝群</h2>
-            <p data-translate="group-intro">加入QQ粉丝群，与UP主互动：</p>
-            <a href="https://qm.qq.com/q/ekdF63GJUs" class="join-group-btn" target="_blank">加入粉丝群</a>
-        </div>
-        <footer>
-            <p>版权所有 © 2024 云散皆星河</p>
-        </footer>
-    </div>
-    <div class="popup" id="popup">
-        <img src="https://ts1.cn.mm.bing.net/th/id/R-C.d3d2adf95ae1739138c8a7db3ad4c6ae?rik=EQtYzg%2bRq%2fZU%2fQ&riu=http%3a%2f%2fimg.ycnews.cn%2fa%2f10001%2f201907%2f469a123e51b7b69b232e75b394fe7d0f.jpeg&ehk=HbHA%2fRXOGDfrT476AaNhBVZPwomBI0%2biKcD4av1NgU0%3d&risl=&pid=ImgRaw&r=0" alt="Popup Image">
-        <div class="content">
-            <h2>欢迎访问！</h2>
-            <p>中国台湾的同志,您好</p>
-        </div>
-        <button class="close" onclick="document.getElementById('popup').style.display='none'">关闭</button>
-    </div>
+    <header>
+        <img src="windows1.gif" alt="Logo" class="logo">
+        <h1>云散皆星河</h1>
+    </header>
+    <section id="intro" class="gradient-1">
+        <h2>欢迎来到云散皆星河</h2>
+        <p>一个专注于破解电子教室的UP主</p>
+        <a href="https://space.bilibili.com/3494352290581232" class="button" target="_blank">进入B站主页</a>
+        <div class="image-frame" style="background-image: url('image1.jpg');"></div>
+    </section>
+    <section id="about" class="gradient-2">
+        <h2>关于我们</h2>
+        <p>我们致力于提供安全、有效的解决方案，帮助用户摆脱电子教室软件的限制，以保护个人隐私和提高学习效率。</p>
+        <a href="http://api.mmp.cc/api/lanzou?type=down&url=https://wwil.lanzoul.com/i9NmW2eohwni&pwd=5am1" class="button">下载软件</a>
+        <div class="image-frame" style="background-image: url('image2.jpg');"></div>
+    </section>
+    <section id="services" class="gradient-3">
+        <h2>我们的服务</h2>
+        <p>提供多种电子教室破解工具，严格测试，确保在各种环境下都能稳定运行。</p>
+        <div class="image-frame" style="background-image: url('image3.jpg');"></div>
+    </section>
+    <section id="contact">
+        <h2>联系我们</h2>
+        <p>有任何问题或建议，欢迎通过我们的联系方式与我们取得联系。</p>
+        <a href="https://qm.qq.com/q/ekdF63GJUs" class="button" target="_blank">加入粉丝群</a>
+        <div class="image-frame" style="background-image: url('image4.jpg');"></div>
+    </section>
+    <footer>
+        <p>版权所有 © 2024 云散皆星河</p>
+    </footer>
     <script>
-        const translations = {
-            'zh-CN': {
-                'site-title': '云散皆星河',
-                'intro': '云散皆星河--一个专注于破解电子教室的UP主',
-                'software-title': '软件下载',
-                'software1': '秒杀电子教室软件下载(最小化版,目前仅支持极域)',
-                'software2': '秒杀电子教室软件下载(露头就秒版,通杀所有电子教室)',
-                'software3': '蓝奏云软件下载,密码:1rq1(备用)',
-                'group-title': '粉丝群',
-                'group-intro': '加入QQ粉丝群，与UP主互动：'
-            },
-            'en': {
-                'site-title': 'Scattered Clouds, All Stars',
-                'intro': 'Scattered Clouds, All Stars - A UP master focused on cracking electronic classrooms',
-                'software-title': 'Software Download',
-                'software1': 'Download Crack for Electronic Classroom (Minimized Version, currently supports only JY)',
-                'software2': 'Download Crack for Electronic Classroom (Pop-up Kill Version, kills all electronic classrooms)',
-                'software3': 'Download software from Lanzou Cloud, password: 1rq1 (backup)',
-                'group-title': 'Fan Group',
-                'group-intro': 'Join the QQ fan group to interact with the UP master:'
-            },
-            'zh-TW': {
-                'site-title': '雲散皆星河',
-                'intro': '雲散皆星河--一個專注於破解電子教室的UP主',
-                'software-title': '軟體下載',
-                'software1': '秒杀電子教室軟體下載(最小化版,目前僅支援極域)',
-                'software2': '秒杀電子教室軟體下載(露頭就秒版,通殺所有電子教室)',
-                'software3': '藍奏雲軟體下載,密碼:1rq1(備用)',
-                'group-title': '粉絲群',
-                'group-intro': '加入QQ粉絲群，與UP主互動：'
-            }
-        };
+        let currentGradient = 'gradient-1';
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            let currentActive = null;
 
-        function changeLanguage(lang) {
-            const elements = document.querySelectorAll('[data-translate]');
-            elements.forEach(el => {
-                const key = el.getAttribute('data-translate');
-                el.textContent = translations[lang][key] || key;
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                const sectionBottom = sectionTop + sectionHeight;
+
+                if (pageYOffset >= sectionTop - window.innerHeight / 2 && pageYOffset <= sectionBottom - window.innerHeight / 2) {
+                    if (currentActive !== section) {
+                        document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+                        section.classList.add('active');
+                        currentActive = section;
+
+                        // 移除所有渐变色，添加新的渐变色
+                        document.body.classList.remove('gradient-1', 'gradient-2', 'gradient-3');
+                        currentGradient = `gradient-${section.getAttribute('id').split('')[0]}`;
+                        document.body.classList.add(currentGradient);
+                    }
+                } else {
+                    section.classList.remove('active');
+                }
             });
-            document.documentElement.lang = lang;
-            if (lang === 'zh-TW') {
-                document.getElementById('software-image').src = 'https://ts1.cn.mm.bing.net/th/id/R-C.d3d2adf95ae1739138c8a7db3ad4c6ae?rik=EQtYzg%2bRq%2fZU%2fQ&riu=http%3a%2f%2fimg.ycnews.cn%2fa%2f10001%2f201907%2f469a123e51b7b69b232e75b394fe7d0f.jpeg&ehk=HbHA%2fRXOGDfrT476AaNhBVZPwomBI0%2biKcD4av1NgU0%3d&risl=&pid=ImgRaw&r=0'; 
-                document.getElementById('popup').style.display = 'block';
-            } else {
-                document.getElementById('software-image').src = 'image.jpg';
-                document.getElementById('popup').style.display = 'none';
-            }
-        }
-
-        function detectLanguage() {
-            const userLang = navigator.language || navigator.userLanguage;
-            let lang = userLang.split('-')[0];
-            if (lang === 'zh' && userLang.includes('TW')) {
-                lang = 'zh-TW';
-            } else if (lang === 'en') {
-                lang = 'en';
-            } else {
-                lang = 'zh-CN';
-            }
-            changeLanguage(lang);
-        }
-
-        window.addEventListener('DOMContentLoaded', (event) => {
-            detectLanguage();
-
-            // 获取Logo元素
-            const logo = document.querySelector('.logo');
-
-            // 两秒后移除Logo居中效果
-            setTimeout(() => {
-                logo.style.position = 'static';
-                logo.style.transform = 'none';
-            }, 2000);
         });
     </script>
 </body>
 </html>
-
