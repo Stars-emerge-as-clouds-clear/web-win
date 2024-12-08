@@ -12,7 +12,7 @@
             padding: 0;
             overflow-x: hidden;
             scroll-behavior: smooth;
-            transition: background-color 1s ease; /* 渐变色过渡时间增加到1秒 */
+            transition: background-color 1s ease;
         }
         section {
             min-height: 100vh;
@@ -22,12 +22,12 @@
             justify-content: center;
             text-align: center;
             padding: 2em;
-            opacity: 0; /* 默认不显示 */
-            transition: opacity 1s ease; /* 过渡时间增加到1秒 */
+            opacity: 0;
+            transition: opacity 1s ease, filter 3s ease;
             position: relative;
         }
         section.active {
-            opacity: 1; /* 活跃时显示 */
+            opacity: 1;
         }
         header {
             position: fixed;
@@ -77,23 +77,38 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             transform: translateY(-2px);
         }
-        .image-frame {
-            position: absolute;
-            bottom: -100px;
-            left: 50%;
-            transform: translateX(-50%);
+        .modal {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
             width: 100%;
-            height: 300px;
-            background-size: cover;
-            transition: opacity 1s ease; /* 过渡时间增加到1秒 */
-            opacity: 0;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
         }
-        section.active .image-frame {
-            opacity: 1;
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
         }
-        /* 渐变色 */
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+        .show-modal {
+            display: flex;
+        }
         .gradient-1 {
-            background: linear-gradient(to bottom right, #328AE7， #0B5EB4);
+            background: linear-gradient(to bottom right, #328AE7, #0B5EB4);
         }
         .gradient-2 {
             background: linear-gradient(to bottom right, #57fccd, #2eef90);
@@ -101,7 +116,6 @@
         .gradient-3 {
             background: linear-gradient(to bottom right, #c95cfc, #f0c9fc);
         }
-        /* 手机版样式 */
         @media (max-width: 768px) {
             section {
                 padding: 1em;
@@ -109,61 +123,65 @@
             .logo {
                 width: 80px;
             }
-            .image-frame {
-                height: 200px;
-            }
         }
     </style>
 </head>
 <body>
     <header>
-        <img src="windows1.gif" alt="Logo" class="logo">
+        < img src="windows1.gif" alt="Logo" class="logo">
         <h1>云散皆星河</h1>
     </header>
     <section id="intro" class="gradient-1">
         <h2>欢迎来到云散皆星河</h2>
-        <p>一个专注于破解电子教室的UP主</p>
-        <a href="https://space.bilibili.com/3494352290581232" class="button" target="_blank">进入B站主页</a>
-        <div class="image-frame" style="background-image: url('image1.jpg');"></div>
+        <p>一个专注于破解电子教室的UP主</p >
+        进入B站主页
     </section>
     <section id="about" class="gradient-2">
         <h2>关于我们</h2>
-        <p>我们致力于提供安全、有效的解决方案，帮助用户摆脱电子教室软件的限制，以保护个人隐私和提高学习效率。</p>
-        <a href="http://api.mmp.cc/api/lanzou?type=down&url=https://wwil.lanzoul.com/i9NmW2eohwni&pwd=5am1" class="button">下载软件</a>
-        <div class="image-frame" style="background-image: url('image2.jpg');"></div>
+        <p>我们致力于提供安全、有效的解决方案，帮助用户摆脱电子教室软件的限制，以保护个人隐私和提高学习效率。</p >
     </section>
     <section id="services" class="gradient-3">
         <h2>我们的服务</h2>
-        <p>提供多种电子教室破解工具，严格测试，确保在各种环境下都能稳定运行。</p>
-        <div class="image-frame" style="background-image: url('image3.jpg');"></div>
+        <p>提供多种电子教室破解工具，严格测试，确保在各种环境下都能稳定运行。</p >
+        <button class="button" onclick="showModal()">下载软件</button>
+        <div class="modal" id="downloadModal">
+            <div class="modal-content">
+                <span class="modal-close" onclick="closeModal()">&times;</span>
+                <h3>下载软件</h3>
+                <p>请根据需要下载相应的软件版本：</p >
+                <p><strong>极域使用新版本，其他应用老版本。</strong></p >
+                下载极域新版本
+                下载其他应用旧版本
+            </div>
+        </div>
     </section>
     <section id="contact">
         <h2>联系我们</h2>
-        <p>有任何问题或建议，欢迎通过我们的联系方式与我们取得联系。</p>
-        <a href="https://qm.qq.com/q/ekdF63GJUs" class="button" target="_blank">加入粉丝群</a>
-        <div class="image-frame" style="background-image: url('image4.jpg');"></div>
+        <p>有任何问题或建议，欢迎通过我们的联系方式与我们取得联系。</p >
+        
     </section>
     <footer>
-        <p>版权所有 © 2024 云散皆星河</p>
+        <p>版权所有 © 2024 云散皆星河</p >
     </footer>
     <script>
+        function showModal() {
+            document.getElementById('downloadModal').classList.add('show-modal');
+        }
+        function closeModal() {
+            document.getElementById('downloadModal').classList.remove('show-modal');
+        }
         window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('section');
             let currentActive = null;
-
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
                 const sectionBottom = sectionTop + sectionHeight;
-
-                // 增加灵敏度，使用window.innerHeight / 2作为阈值
                 if (pageYOffset >= sectionTop - window.innerHeight / 2 && pageYOffset < sectionBottom - window.innerHeight / 2) {
                     if (currentActive !== section) {
                         document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
                         section.classList.add('active');
                         currentActive = section;
-
-                        // 移除所有渐变色，添加新的渐变色
                         document.body.classList.remove('gradient-1', 'gradient-2', 'gradient-3');
                         const gradientClass = `gradient-${section.id.split('')[0]}`;
                         document.body.classList.add(gradientClass);
