@@ -77,44 +77,25 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             transform: translateY(-2px);
         }
-        .modal {
-            display: none;
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 200;
-            align-items: center;
-            justify-content: center;
+        .image-frame {
+            width: 80px;
+            height: 80px;
+            background-size: cover;
+            display: inline-block; /* 使其可以并排 */
+            margin-top: 20px; /* 增加上边距 */
+            transition: filter 1.5s ease; /* 调整渐变时间为1.5秒 */
         }
-        .modal-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            width: 80%;
-            max-width: 400px;
-            text-align: center;
-            position: relative;
+        .image-frame:last-child {
+            margin-right: 0; /* 最后一个图片不需要右边距 */
         }
-        .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-        }
-        .show-modal {
+        .image-container {
             display: flex;
+            justify-content: center;
+            width: 100%;
+            flex-wrap: wrap; /* 允许图片换行 */
         }
-        .gradient-1 {
-            background: linear-gradient(to bottom right, #328AE7, #0B5EB4);
-        }
-        .gradient-2 {
-            background: linear-gradient(to bottom right, #57fccd, #2eef90);
-        }
-        .gradient-3 {
-            background: linear-gradient(to bottom right, #c95cfc, #f0c9fc);
+        .gradient {
+            background: linear-gradient(to bottom right, #43e97b, #38f9d7, #2f80ed);
         }
         @media (max-width: 768px) {
             section {
@@ -123,68 +104,73 @@
             .logo {
                 width: 80px;
             }
+            .image-frame {
+                width: 100%; /* 移动设备上图片宽度为100% */
+                height: auto; /* 高度自适应 */
+                margin-right: 0; /* 移动设备上图片不需要右边距 */
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        < img src="windows1.gif" alt="Logo" class="logo">
+        <img src="windows1.gif" alt="Logo" class="logo">
         <h1>云散皆星河</h1>
     </header>
-    <section id="intro" class="gradient-1">
+    <section id="intro" class="gradient">
         <h2>欢迎来到云散皆星河</h2>
-        <p>一个专注于破解电子教室的UP主</p >
-        进入B站主页
+        <p>一个专注于破解电子教室的UP主</p>
+        <a href="https://space.bilibili.com/3494352290581232" class="button" target="_blank">进入B站主页</a>
     </section>
-    <section id="about" class="gradient-2">
+    <section id="about" class="gradient">
         <h2>关于我们</h2>
-        <p>我们致力于提供安全、有效的解决方案，帮助用户摆脱电子教室软件的限制，以保护个人隐私和提高学习效率。</p >
-    </section>
-    <section id="services" class="gradient-3">
-        <h2>我们的服务</h2>
-        <p>提供多种电子教室破解工具，严格测试，确保在各种环境下都能稳定运行。</p >
-        <button class="button" onclick="showModal()">下载软件</button>
-        <div class="modal" id="downloadModal">
-            <div class="modal-content">
-                <span class="modal-close" onclick="closeModal()">&times;</span>
-                <h3>下载软件</h3>
-                <p>请根据需要下载相应的软件版本：</p >
-                <p><strong>极域使用新版本，其他应用老版本。</strong></p >
-                下载极域新版本
-                下载其他应用旧版本
-            </div>
+        <p>我们致力于提供安全、有效的解决方案，帮助用户摆脱电子教室软件的限制，以保护个人隐私和提高学习效率。</p>
+        <div class="image-container">
+            <div class="image-frame" id="about-image1" style="background-image: url('https://img3.downza.cn/download/201810/150751-5bc982c773d0b.JPG');"></div>
+            <div class="image-frame" id="about-image2" style="background-image: url('https://img.ddooo.com/logo/20240806/da353ea27deb36fdd8144f97719504d8.jpg');"></div>
         </div>
     </section>
-    <section id="contact">
+    <section id="services" class="gradient">
+        <h2>我们的服务</h2>
+        <p>提供多种电子教室破解工具，严格测试，确保在各种环境下都能稳定运行。</p>
+        <a href="https://stars-emerge-as-clouds-clear.github.io/web-win/" class="button" target="_blank">下载软件及附属软件</a>
+    </section>
+    <section id="contact" class="gradient">
         <h2>联系我们</h2>
-        <p>有任何问题或建议，欢迎通过我们的联系方式与我们取得联系。</p >
-        
+        <p>有任何问题或建议，欢迎通过我们的联系方式与我们取得联系。</p>
+        <a href="https://qm.qq.com/q/ekdF63GJUs" class="button" target="_blank">加入粉丝群</a>
     </section>
     <footer>
-        <p>版权所有 © 2024 云散皆星河</p >
+        <p>版权所有 © 2024 云散皆星河</p>
     </footer>
     <script>
-        function showModal() {
-            document.getElementById('downloadModal').classList.add('show-modal');
-        }
-        function closeModal() {
-            document.getElementById('downloadModal').classList.remove('show-modal');
-        }
         window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('section');
             let currentActive = null;
+
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
                 const sectionBottom = sectionTop + sectionHeight;
+
                 if (pageYOffset >= sectionTop - window.innerHeight / 2 && pageYOffset < sectionBottom - window.innerHeight / 2) {
                     if (currentActive !== section) {
                         document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
                         section.classList.add('active');
                         currentActive = section;
+
                         document.body.classList.remove('gradient-1', 'gradient-2', 'gradient-3');
                         const gradientClass = `gradient-${section.id.split('')[0]}`;
                         document.body.classList.add(gradientClass);
+
+                        if (section.id === 'about') {
+                            const imageFrames = document.querySelectorAll('#about .image-frame');
+                            setTimeout(() => {
+                                imageFrames.forEach(frame => {
+                                    frame.classList.add('active');
+                                });
+                            }, 1000); // 1秒后开始渐变
+                        }
                     }
                 } else {
                     section.classList.remove('active');
