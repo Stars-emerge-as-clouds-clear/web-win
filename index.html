@@ -81,18 +81,18 @@
             width: 80px;
             height: 80px;
             background-size: cover;
-            display: inline-block; /* 使其可以并排 */
-            margin-top: 20px; /* 增加上边距 */
-            transition: filter 1.5s ease; /* 调整渐变时间为1.5秒 */
+            display: inline-block;
+            margin-top: 20px;
+            transition: filter 2s ease; /* 将渐变时间设置为2秒 */
         }
-        .image-frame:last-child {
-            margin-right: 0; /* 最后一个图片不需要右边距 */
+        .image-frame.active {
+            filter: grayscale(100%);
         }
         .image-container {
             display: flex;
             justify-content: center;
             width: 100%;
-            flex-wrap: wrap; /* 允许图片换行 */
+            flex-wrap: wrap;
         }
         .gradient {
             background: linear-gradient(to bottom right, #43e97b, #38f9d7, #2f80ed);
@@ -105,9 +105,9 @@
                 width: 80px;
             }
             .image-frame {
-                width: 100%; /* 移动设备上图片宽度为100% */
-                height: auto; /* 高度自适应 */
-                margin-right: 0; /* 移动设备上图片不需要右边距 */
+                width: 100%;
+                height: auto;
+                margin-right: 0;
             }
         }
     </style>
@@ -175,6 +175,13 @@
                 } else {
                     section.classList.remove('active');
                 }
+            });
+        });
+
+        // 添加点击事件监听器，切换图片框的颜色
+        document.querySelectorAll('.image-frame').forEach(frame => {
+            frame.addEventListener('click', () => {
+                frame.classList.toggle('active');
             });
         });
     </script>
