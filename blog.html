@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>博客网页示例</title>
+<title>思路合集</title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -57,12 +57,48 @@
 <body>
 
 <div class="code-box">
-  <div class="code-text">JavaScript 打印 Hello, World!</div>
-  <div class="code-header">JavaScript</div>
+  <div class="code-text">解禁注册表</div>
+  <div class="code-header">C++</div>
   <button class="copy-btn" onclick="copyCode(this)">复制</button>
   <pre><code>
-    // JavaScript 示例
-    console.log('Hello, World!');
+#include <windows.h>
+#include <iostream>
+
+// 解锁注册表项的函数
+void UnlockRegistry(HKEY hKey) {
+    LONG lRet;
+    HKEY hKeyResult;
+    DWORD dwDisposition;
+
+    // 尝试打开注册表项
+    lRet = RegCreateKeyEx(
+        hKey,               // 父键句柄
+        TEXT("TestKey"),    // 要创建的子键名称
+        0,                 // 保留，必须为0
+        NULL,              // 类型，不指定
+        REG_OPTION_NON_VOLATILE, // 选项，非挥发性
+        KEY_ALL_ACCESS,     // 访问权限
+        NULL,              // 安全属性
+        &hKeyResult,       // 打开或创建的子键句柄
+        &dwDisposition     // 指示是新创建的还是已存在的
+    );
+
+    if (lRet == ERROR_SUCCESS) {
+        std::cout << "Registry key unlocked successfully." << std::endl;
+        // 关闭注册表项句柄
+        RegCloseKey(hKeyResult);
+    } else {
+        std::cout << "Failed to unlock registry key. Error: " << lRet << std::endl;
+    }
+}
+
+int main() {
+    // 解锁HKEY_CURRENT_USER根键下的TestKey
+    UnlockRegistry(HKEY_CURRENT_USER);
+
+    return 0;
+}
+
   </code></pre>
 </div>
 
