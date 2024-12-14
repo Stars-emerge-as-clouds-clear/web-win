@@ -46,11 +46,18 @@ function isCrawler(userAgent) {
     return crawlers.test(userAgent);
 }
 
-// 函数：生成简单的验证码
-function generateCaptcha() {
+// 函数：生成简单的验证码图片
+function generateCaptchaImage() {
+    var canvas = document.createElement('canvas');
+    canvas.width = 120;
+    canvas.height = 40;
+    var ctx = canvas.getContext('2d');
     var captcha = Math.random().toString(36).substring(2, 8);
     setCookie('captcha', captcha, 20);
-    return captcha;
+    ctx.font = '20px Arial';
+    ctx.fillStyle = 'black';
+    ctx.fillText(captcha, 10, 24);
+    return canvas.toDataURL('image/png');
 }
 
 // 函数：验证验证码
@@ -86,9 +93,9 @@ window.onload = function() {
         return;
     }
 
-    // 生成验证码并显示输入框
-    var captcha = generateCaptcha();
-    document.body.innerHTML = '<p>Enter the captcha: <input type="text" id="captchaInput"><button onclick="verifyCaptcha()">Submit</button></p>';
+    // 生成验证码图片并显示输入框
+    var captchaImageSrc = generateCaptchaImage();
+    document.body.innerHTML = '<p>Enter the captcha: <img src="' + captchaImageSrc + '" alt="Captcha"><input type="text" id="captchaInput"><button onclick="verifyCaptcha()">Submit</button></p>';
 };
 </script>
 </head>
