@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 <meta charset="UTF-8">
-<title>人机验证</title>
+<title>人机验证，维护中</title>
 <style>
   body {
     font-family: 'Arial', sans-serif;
@@ -146,7 +146,7 @@ function verifyCaptcha() {
         window.location.href = 'main.html';
     } else {
         // 验证码错误，提示用户
-        alert('验证码错误，请重试。');
+        alert('验证码错误，请重试。网站维护中');
     }
 }
 
@@ -182,7 +182,7 @@ window.onload = function() {
 <body>
 <div class="container">
   <h2>人机验证</h2>
-  <p>请输入验证码：
+  <p>请输入验证码：网站维护中
     <div class="captcha-image" onclick="refreshCaptcha()">
       <img id="captchaImage" src="" alt="验证码">
     </div>
