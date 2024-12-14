@@ -46,10 +46,20 @@ function isCrawler(userAgent) {
     return crawlers.test(userAgent);
 }
 
+// 函数：生成验证码文本
+function generateCaptchaText() {
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?';
+    var captcha = '';
+    for (var i = 0; i < 6; i++) {
+        captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return captcha;
+}
+
 // 函数：生成简单的验证码图片
 function generateCaptchaImage() {
     var canvas = document.createElement('canvas');
-    var width = 120;
+    var width = 150;
     var height = 40;
     canvas.width = width;
     canvas.height = height;
@@ -73,7 +83,7 @@ function generateCaptchaImage() {
     }
 
     // 生成验证码文本
-    var captcha = Math.random().toString(36).substring(2, 6);
+    var captcha = generateCaptchaText();
     setCookie('captcha', captcha, 20);
     ctx.font = '20px Arial';
     ctx.fillStyle = 'black';
@@ -90,7 +100,7 @@ function generateCaptchaImage() {
 function verifyCaptcha() {
     var userCaptcha = document.getElementById('captchaInput').value;
     var correctCaptcha = getCookie('captcha');
-    if(userCaptcha === correctCaptcha) {
+    if(userCaptcha.toLowerCase() === correctCaptcha) {
         // 验证码正确，跳转到main.html
         window.location.href = 'main.html';
     } else {
