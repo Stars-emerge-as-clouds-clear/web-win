@@ -17,6 +17,18 @@ function setCookie(name, value, expirationSeconds) {
     document.cookie = name + "=" + value + ";" + expires + ";path=/";
 }
 
+// 函数：获取Cookies
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
 // 当前时间的哈希值
 function generateHash() {
     var now = new Date();
@@ -41,6 +53,19 @@ function generateCaptcha() {
     return captcha;
 }
 
+// 函数：验证验证码
+function verifyCaptcha() {
+    var userCaptcha = document.getElementById('captchaInput').value;
+    var correctCaptcha = getCookie('captcha');
+    if(userCaptcha === correctCaptcha) {
+        // 验证码正确，跳转到main.html
+        window.location.href = 'main.html';
+    } else {
+        // 验证码错误，提示用户
+        alert('Incorrect captcha, please try again.');
+    }
+}
+
 // 页面加载时执行
 window.onload = function() {
     // 转换所有链接为HTTPS
@@ -61,12 +86,9 @@ window.onload = function() {
         return;
     }
 
-    // 显示验证码
+    // 生成验证码并显示输入框
     var captcha = generateCaptcha();
-    document.body.innerHTML += '<p>Enter the captcha: ' + captcha + '</p>';
-
-    // 跳转到main.html
-    window.location.href = 'main.html';
+    document.body.innerHTML = '<p>Enter the captcha: <input type="text" id="captchaInput"><button onclick="verifyCaptcha()">Submit</button></p>';
 };
 </script>
 </head>
