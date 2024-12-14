@@ -1,194 +1,228 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<title>人机验证，维护中</title>
-<style>
-  body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f7f7f7;
-    color: #333;
-    text-align: center;
-    padding-top: 50px;
-  }
-  .container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    display: inline-block;
-    margin: 0 auto;
-  }
-  .container h2 {
-    margin-bottom: 20px;
-  }
-  .captcha-image {
-    margin-bottom: 10px;
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-  }
-  .captcha-image img {
-    display: block;
-  }
-  .captcha-image::after {
-    content: '换一个';
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    padding: 5px;
-    border-radius: 3px;
-    font-size: 12px;
-    visibility: hidden;
-  }
-  .captcha-image:hover::after {
-    visibility: visible;
-  }
-  input[type="text"] {
-    padding: 10px;
-    margin-right: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  button {
-    padding: 10px 20px;
-    background-color: #5cb85c;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  button:hover {
-    background-color: #4cae4c;
-  }
-</style>
-<script>
-// 函数：将非HTTPS协议转换为HTTPS协议
-function convertToHttps(url) {
-    return url.replace(/^http:/, 'https:');
-}
-
-// 函数：设置Cookies
-function setCookie(name, value, expirationSeconds) {
-    var d = new Date();
-    d.setTime(d.getTime() + expirationSeconds * 1000);
-    var expires = "expires=" + d.toUTCString();
-    document.cookie = name + "=" + value + ";" + expires + ";path=/";
-}
-
-// 函数：获取Cookies
-function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for(var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-}
-
-// 函数：检测是否为爬虫
-function isCrawler(userAgent) {
-    var crawlers = /bot|crawl|spider|slurp|googlebot|bingbot|yandexbot/i;
-    return crawlers.test(userAgent);
-}
-
-// 函数：生成六位数字加小写字母的验证码
-function generateCaptcha() {
-    var captcha = '';
-    var chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    for (var i = 0; i < 6; i++) {
-        captcha += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return captcha;
-}
-
-// 函数：生成简单的验证码图片
-function generateCaptchaImage() {
-    var captcha = generateCaptcha();
-    setCookie('captcha', captcha, 20); // 设置cookie
-    var canvas = document.createElement('canvas');
-    var width = 150;
-    var height = 40;
-    canvas.width = width;
-    canvas.height = height;
-    var ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#f0f0f0'; // 背景色
-    ctx.fillRect(0, 0, width, height);
-    ctx.strokeStyle = '#cccccc'; // 干扰线颜色
-    for (var i = 0; i < 5; i++) {
-        ctx.beginPath();
-        ctx.moveTo(Math.random() * width, Math.random() * height);
-        ctx.lineTo(Math.random() * width, Math.random() * height);
-        ctx.stroke();
-    }
-    ctx.fillStyle = '#333'; // 字体颜色
-    ctx.font = '20px Arial';
-    var textWidth = ctx.measureText(captcha).width;
-    ctx.translate((width - textWidth) / 2, height / 2);
-    ctx.rotate(Math.random() * (Math.PI / 4) - (Math.PI / 8)); // 随机旋转文本，限制在正负40度以内
-    ctx.fillText(captcha, 0, 0);
-    return canvas.toDataURL('image/png');
-}
-
-// 函数：验证验证码
-function verifyCaptcha() {
-    var userCaptcha = document.getElementById('captchaInput').value;
-    var correctCaptcha = getCookie('captcha');
-    if(userCaptcha === correctCaptcha) {
-        // 验证码正确，设置一个cookie用于下一个网站的验证
-        setCookie('validated', 'true', 3600); // 设置cookie有效期为1小时
-        // 跳转到main.html
-        window.location.href = 'main.html';
-    } else {
-        // 验证码错误，提示用户
-        alert('验证码错误，请重试。网站维护中');
-    }
-}
-
-// 函数：刷新验证码
-function refreshCaptcha() {
-    var captchaImage = document.getElementById('captchaImage');
-    captchaImage.src = generateCaptchaImage();
-    document.cookie = 'captcha=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; // 清除旧的验证码cookie
-}
-
-// 页面加载时执行
-window.onload = function() {
-    // 转换所有链接为HTTPS
-    var links = document.getElementsByTagName('a');
-    for (var i = 0; i < links.length; i++) {
-        links[i].href = convertToHttps(links[i].href);
-    }
-
-    // 检测是否为爬虫
-    var userAgent = navigator.userAgent;
-    if (isCrawler(userAgent)) {
-        // 如果是爬虫，阻止页面加载
-        document.body.innerHTML = "爬虫访问被拒绝。";
-        return;
-    }
-
-    // 生成验证码图片并显示输入框
-    var captchaImageSrc = generateCaptchaImage();
-    document.getElementById('captchaImage').src = captchaImageSrc;
-};
-</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>云散皆星河 - 官网</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            font-family: 'Noto Sans SC', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            transition: background-color 1s ease;
+        }
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2em;
+            opacity: 0;
+            transition: opacity 1s ease, filter 3s ease;
+            position: relative;
+        }
+        section.active {
+            opacity: 1;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 1em;
+            background-color: rgba(255, 255, 255, 0.9);
+            z-index: 100;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .logo {
+            width: 100px;
+            height: auto;
+        }
+        nav {
+            display: none;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 1em;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        footer p {
+            margin: 0;
+        }
+        .button {
+            display: inline-block;
+            background-color: #1e40af;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .button:hover {
+            background-color: #003580;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+        .image-frame {
+            width: 80px;
+            height: 80px;
+            background-size: cover;
+            display: inline-block;
+            margin-top: 20px;
+            transition: filter 2s ease; /* 将渐变时间设置为2秒 */
+        }
+        .image-frame.active {
+            filter: grayscale(100%);
+        }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+        .gradient {
+            background: linear-gradient(to bottom right, #43e97b, #38f9d7, #2f80ed);
+        }
+        @media (max-width: 768px) {
+            section {
+                padding: 1em;
+            }
+            .logo {
+                width: 80px;
+            }
+            .image-frame {
+                width: 100%;
+                height: auto;
+                margin-right: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-  <h2>人机验证</h2>
-  <p>请输入验证码：网站维护中
-    <div class="captcha-image" onclick="refreshCaptcha()">
-      <img id="captchaImage" src="" alt="验证码">
-    </div>
-    <input type="text" id="captchaInput" placeholder="验证码">
-    <button onclick="verifyCaptcha()">提交</button>
-  </p>
-</div>
+    <header>
+        <img src="windows1.gif" alt="Logo" class="logo">
+        <h1>云散皆星河</h1>
+    </header>
+    <section id="intro" class="gradient">
+        <h2>欢迎来到云散皆星河</h2>
+        <p>一个专注于破解电子教室的UP主</p>
+        <a href="https://space.bilibili.com/3494352290581232" class="button" target="_blank">进入B站主页</a>
+    </section>
+    <section id="about" class="gradient">
+        <h2>关于我们</h2>
+        <p>我们致力于提供安全、有效的解决方案，帮助用户摆脱电子教室软件的限制，以保护个人隐私和提高学习效率。</p>
+        <div class="image-container">
+            <div class="image-frame" id="about-image1" style="background-image: url('https://img3.downza.cn/download/201810/150751-5bc982c773d0b.JPG');"></div>
+            <div class="image-frame" id="about-image2" style="background-image: url('https://img.ddooo.com/logo/20240806/da353ea27deb36fdd8144f97719504d8.jpg');"></div>
+        </div>
+    </section>
+    <section id="services" class="gradient">
+        <h2>我们的服务</h2>
+        <p>提供多种电子教室破解工具，严格测试，确保在各种环境下都能稳定运行。</p>
+        <a href="Download" class="button" target="_blank">下载软件及附属软件</a>
+    </section>
+    <section id="contact" class="gradient">
+        <h2>联系我们</h2>
+        <p>有任何问题或建议，欢迎通过我们的联系方式与我们取得联系。</p>
+        <a href="https://qm.qq.com/q/ekdF63GJUs" class="button" target="_blank">加入粉丝群</a>
+    </section>
+    <footer>
+        <p>版权所有 © 2024 云散皆星河</p>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script>
+        // 获取Cookies的函数
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        // 验证Cookies的函数
+        function validateCookie() {
+            const cookieName = 'hash'; // Cookies的名称
+            const cookieValue = getCookie(cookieName); // 获取Cookies的值
+            if (!cookieValue) {
+                // 如果Cookies不存在或为空，跳转回主域名
+                window.location.href = 'https://pjdzjs.us.kg/main.html';
+                return false;
+            }
+            // 盐值
+            const salt = 'your-secure-salt'; // 盐值，实际使用时应从服务器端获取
+            // 将盐值和Cookies值拼接后进行SHA-256哈希计算
+            const hash = CryptoJS.SHA256(cookieValue + salt).toString();
+            // 验证Cookies的内容是否符合预期哈希值
+            if (hash !== cookieValue) {
+                // 如果Cookies的内容不符合预期哈希值，跳转回主域名
+                window.location.href = 'https://pjdzjs.us.kg/main.html';
+                return false;
+            }
+            // 如果Cookies验证通过，继续执行其他逻辑
+            return true;
+        }
+
+        // 页面加载时执行验证Cookies
+        window.onload = function() {
+            if (!validateCookie()) {
+                // 如果验证失败，阻止后续代码执行
+                return;
+            }
+            // 后续代码保持不变
+            window.addEventListener('scroll', () => {
+                const sections = document.querySelectorAll('section');
+                let currentActive = null;
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    const sectionBottom = sectionTop + sectionHeight;
+
+                    if (pageYOffset >= sectionTop - window.innerHeight / 2 && pageYOffset < sectionBottom - window.innerHeight / 2) {
+                        if (currentActive !== section) {
+                            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+                            section.classList.add('active');
+                            currentActive = section;
+
+                            document.body.classList.remove('gradient-1', 'gradient-2', 'gradient-3');
+                            const gradientClass = `gradient-${section.id.split('')[0]}`;
+                            document.body.classList.add(gradientClass);
+
+                            if (section.id === 'about') {
+                                const imageFrames = document.querySelectorAll('#about .image-frame');
+                                setTimeout(() => {
+                                    imageFrames.forEach(frame => {
+                                        frame.classList.add('active');
+                                    });
+                                }, 1000); // 1秒后开始渐变
+                            }
+                        }
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+            });
+
+            // 添加点击事件监听器，切换图片框的颜色
+            document.querySelectorAll('.image-frame').forEach(frame => {
+                frame.addEventListener('click', () => {
+                    frame.classList.toggle('active');
+                });
+            });
+        };
+    </script>
 </body>
 </html>
