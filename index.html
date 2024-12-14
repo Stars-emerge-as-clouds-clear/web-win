@@ -91,23 +91,6 @@ function getCookie(name) {
     return null;
 }
 
-// 当前时间的哈希值
-function generateHash() {
-    var now = new Date();
-    var hash = now.getFullYear() + 
-              (now.getMonth() + 1).toString().padStart(2, '0') + 
-              now.getDate().toString().padStart(2, '0') + 
-              now.getHours().toString().padStart(2, '0') + 
-              now.getMinutes().toString().padStart(2, '0');
-    return hash;
-}
-
-// 函数：检测是否为爬虫
-function isCrawler(userAgent) {
-    var crawlers = /bot|crawl|spider|slurp|googlebot|bingbot|yandexbot/i;
-    return crawlers.test(userAgent);
-}
-
 // 函数：生成六位数字加小写字母的验证码
 function generateCaptcha() {
     var captcha = '';
@@ -126,8 +109,6 @@ function generateCaptchaImage() {
     canvas.width = width;
     canvas.height = height;
     var ctx = canvas.getContext('2d');
-
-    // 绘制干扰线
     ctx.strokeStyle = '#cccccc';
     for (var i = 0; i < 5; i++) {
         ctx.beginPath();
@@ -135,26 +116,21 @@ function generateCaptchaImage() {
         ctx.lineTo(Math.random() * width, Math.random() * height);
         ctx.stroke();
     }
-
-    // 绘制噪点
     for (var i = 0; i < 100; i++) {
         ctx.beginPath();
         ctx.arc(Math.random() * width, Math.random() * height, 1, 0, Math.PI * 2);
         ctx.fillStyle = '#cccccc';
         ctx.fill();
     }
-
-    // 生成验证码文本
     var captcha = generateCaptcha();
     setCookie('captcha', captcha, 20);
     ctx.font = '20px Arial';
     ctx.fillStyle = 'black';
     var textWidth = ctx.measureText(captcha).width;
     ctx.translate(width / 2, height / 2);
-    var rotation = Math.random() * (Math.PI / 4) - (Math.PI / 8); // 随机旋转文本，限制在正负40度以内
+    var rotation = Math.random() * (Math.PI / 4) - (Math.PI / 8);
     ctx.rotate(rotation);
     ctx.fillText(captcha, -textWidth / 2, 0);
-
     return canvas.toDataURL('image/png');
 }
 
@@ -163,42 +139,36 @@ function verifyCaptcha() {
     var userCaptcha = document.getElementById('captchaInput').value;
     var correctCaptcha = getCookie('captcha');
     if(userCaptcha === correctCaptcha) {
-        // 验证码正确，跳转到main.html
         window.location.href = 'main.html';
     } else {
-        // 验证码错误，提示用户
         alert('验证码错误，请重试。');
     }
 }
 
 // 函数：刷新验证码
 function refreshCaptcha() {
+    var attempts = getCookie('attempts');
+    if (attempts) {
+        attempts = parseInt(attempts, 10) + 1;
+    } else {
+        attempts = 1;
+    }
+    if (attempts > 5) {
+        alert('十分钟内只能刷新五次验证码，请稍后再试。');
+        return;
+    }
+    setCookie('attempts', attempts, 600); // 10 minutes in seconds
     var captchaImage = document.getElementById('captchaImage');
     captchaImage.src = generateCaptchaImage();
-    document.cookie = 'captcha=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; // 清除旧的验证码cookie
+    setCookie('captcha', '', -1); // Clear the old captcha
 }
 
 // 页面加载时执行
 window.onload = function() {
-    // 转换所有链接为HTTPS
     var links = document.getElementsByTagName('a');
     for (var i = 0; i < links.length; i++) {
         links[i].href = convertToHttps(links[i].href);
     }
-
-    // 设置Cookies
-    var hashValue = generateHash();
-    setCookie('hash', hashValue, 20);
-
-    // 检测是否为爬虫
-    var userAgent = navigator.userAgent;
-    if (isCrawler(userAgent)) {
-        // 如果是爬虫，阻止页面加载
-        document.body.innerHTML = "爬虫访问被拒绝。";
-        return;
-    }
-
-    // 生成验证码图片并显示输入框
     var captchaImageSrc = generateCaptchaImage();
     document.getElementById('captchaImage').src = captchaImageSrc;
 };
