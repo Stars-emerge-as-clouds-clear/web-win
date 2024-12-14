@@ -145,84 +145,47 @@
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script>
-        // 获取Cookies的函数
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-        }
+        // 页面加载时执行的滚动效果和图片框颜色切换逻辑
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            let currentActive = null;
 
-        // 验证Cookies的函数
-        function validateCookie() {
-            const cookieName = 'hash'; // Cookies的名称
-            const cookieValue = getCookie(cookieName); // 获取Cookies的值
-            if (!cookieValue) {
-                // 如果Cookies不存在或为空，跳转回主域名
-                window.location.href = 'https://pjdzjs.us.kg/main.html';
-                return false;
-            }
-            // 盐值
-            const salt = 'your-secure-salt'; // 盐值，实际使用时应从服务器端获取
-            // 将盐值和Cookies值拼接后进行SHA-256哈希计算
-            const hash = CryptoJS.SHA256(cookieValue + salt).toString();
-            // 验证Cookies的内容是否符合预期哈希值
-            if (hash !== cookieValue) {
-                // 如果Cookies的内容不符合预期哈希值，跳转回主域名
-                window.location.href = 'https://pjdzjs.us.kg/main.html';
-                return false;
-            }
-            // 如果Cookies验证通过，继续执行其他逻辑
-            return true;
-        }
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                const sectionBottom = sectionTop + sectionHeight;
 
-        // 页面加载时执行验证Cookies
-        window.onload = function() {
-            if (!validateCookie()) {
-                // 如果验证失败，阻止后续代码执行
-                return;
-            }
-            // 后续代码保持不变
-            window.addEventListener('scroll', () => {
-                const sections = document.querySelectorAll('section');
-                let currentActive = null;
+                if (pageYOffset >= sectionTop - window.innerHeight / 2 && pageYOffset < sectionBottom - window.innerHeight / 2) {
+                    if (currentActive !== section) {
+                        document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+                        section.classList.add('active');
+                        currentActive = section;
 
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
-                    const sectionBottom = sectionTop + sectionHeight;
+                        document.body.classList.remove('gradient-1', 'gradient-2', 'gradient-3');
+                        const gradientClass = `gradient-${section.id.split('')[0]}`;
+                        document.body.classList.add(gradientClass);
 
-                    if (pageYOffset >= sectionTop - window.innerHeight / 2 && pageYOffset < sectionBottom - window.innerHeight / 2) {
-                        if (currentActive !== section) {
-                            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-                            section.classList.add('active');
-                            currentActive = section;
-
-                            document.body.classList.remove('gradient-1', 'gradient-2', 'gradient-3');
-                            const gradientClass = `gradient-${section.id.split('')[0]}`;
-                            document.body.classList.add(gradientClass);
-
-                            if (section.id === 'about') {
-                                const imageFrames = document.querySelectorAll('#about .image-frame');
-                                setTimeout(() => {
-                                    imageFrames.forEach(frame => {
-                                        frame.classList.add('active');
-                                    });
-                                }, 1000); // 1秒后开始渐变
-                            }
+                        if (section.id === 'about') {
+                            const imageFrames = document.querySelectorAll('#about .image-frame');
+                            setTimeout(() => {
+                                imageFrames.forEach(frame => {
+                                    frame.classList.add('active');
+                                });
+                            }, 1000); // 1秒后开始渐变
                         }
-                    } else {
-                        section.classList.remove('active');
                     }
-                });
+                } else {
+                    section.classList.remove('active');
+                }
             });
+        });
 
-            // 添加点击事件监听器，切换图片框的颜色
-            document.querySelectorAll('.image-frame').forEach(frame => {
-                frame.addEventListener('click', () => {
-                    frame.classList.toggle('active');
-                });
+        // 添加点击事件监听器，切换图片框的颜色
+        document.querySelectorAll('.image-frame').forEach(frame => {
+            frame.addEventListener('click', () => {
+                frame.classList.toggle('active');
             });
-        };
+        });
     </script>
 </body>
 </html>
