@@ -24,6 +24,27 @@
   }
   .captcha-image {
     margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+  .captcha-image img {
+    display: block;
+  }
+  .captcha-image::after {
+    content: '换一个';
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    visibility: hidden;
+  }
+  .captcha-image:hover::after {
+    visibility: visible;
   }
   input[type="text"] {
     padding: 10px;
@@ -150,6 +171,13 @@ function verifyCaptcha() {
     }
 }
 
+// 函数：刷新验证码
+function refreshCaptcha() {
+    var captchaImage = document.getElementById('captchaImage');
+    captchaImage.src = generateCaptchaImage();
+    document.cookie = 'captcha=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; // 清除旧的验证码cookie
+}
+
 // 页面加载时执行
 window.onload = function() {
     // 转换所有链接为HTTPS
@@ -179,7 +207,13 @@ window.onload = function() {
 <body>
 <div class="container">
   <h2>人机验证</h2>
-  <p>请输入验证码：<img id="captchaImage" src="" alt="验证码" class="captcha-image"><input type="text" id="captchaInput" placeholder="验证码"><button onclick="verifyCaptcha()">提交</button></p>
+  <p>请输入验证码：
+    <div class="captcha-image" onclick="refreshCaptcha()">
+      <img id="captchaImage" src="" alt="验证码">
+    </div>
+    <input type="text" id="captchaInput" placeholder="验证码">
+    <button onclick="verifyCaptcha()">提交</button>
+  </p>
 </div>
 </body>
 </html>
