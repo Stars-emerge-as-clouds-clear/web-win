@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Redirect to HTTPS</title>
+<title>Redirect to HTTPS with Anti-Crawler and Captcha</title>
 <script>
 // 函数：将非HTTPS协议转换为HTTPS协议
 function convertToHttps(url) {
@@ -28,6 +28,19 @@ function generateHash() {
     return hash;
 }
 
+// 函数：检测是否为爬虫
+function isCrawler(userAgent) {
+    var crawlers = /bot|crawl|spider|slurp|googlebot|bingbot|yandexbot/i;
+    return crawlers.test(userAgent);
+}
+
+// 函数：生成简单的验证码
+function generateCaptcha() {
+    var captcha = Math.random().toString(36).substring(2, 8);
+    setCookie('captcha', captcha, 20);
+    return captcha;
+}
+
 // 页面加载时执行
 window.onload = function() {
     // 转换所有链接为HTTPS
@@ -39,6 +52,18 @@ window.onload = function() {
     // 设置Cookies
     var hashValue = generateHash();
     setCookie('hash', hashValue, 20);
+
+    // 检测是否为爬虫
+    var userAgent = navigator.userAgent;
+    if (isCrawler(userAgent)) {
+        // 如果是爬虫，阻止页面加载
+        document.body.innerHTML = "Access denied for crawlers.";
+        return;
+    }
+
+    // 显示验证码
+    var captcha = generateCaptcha();
+    document.body.innerHTML += '<p>Enter the captcha: ' + captcha + '</p>';
 
     // 跳转到main.html
     window.location.href = 'main.html';
