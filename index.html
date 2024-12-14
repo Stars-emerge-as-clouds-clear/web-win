@@ -140,8 +140,8 @@ function verifyCaptcha() {
     var userCaptcha = document.getElementById('captchaInput').value;
     var correctCaptcha = getCookie('captcha');
     if(userCaptcha === correctCaptcha) {
-        // 验证码正确，设置一个用于验证的cookie
-        setCookie('verified', 'true', 60); // 设置一个有效期为60秒的cookie
+        // 验证码正确，设置一个cookie用于下一个网站的验证
+        setCookie('validated', 'true', 3600); // 设置cookie有效期为1小时
         // 跳转到main.html
         window.location.href = 'main.html';
     } else {
@@ -154,7 +154,7 @@ function verifyCaptcha() {
 function refreshCaptcha() {
     var captchaImage = document.getElementById('captchaImage');
     captchaImage.src = generateCaptchaImage();
-    setCookie('captcha', '', 0); // 清除旧的验证码cookie
+    document.cookie = 'captcha=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; // 清除旧的验证码cookie
 }
 
 // 页面加载时执行
