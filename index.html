@@ -2,7 +2,48 @@
 <html lang="zh">
 <head>
 <meta charset="UTF-8">
-<title>重定向到HTTPS并带有反爬虫和验证码</title>
+<title>人机验证</title>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    text-align: center;
+    padding-top: 50px;
+  }
+  .container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: inline-block;
+    margin: 0 auto;
+  }
+  .container h2 {
+    margin-bottom: 20px;
+  }
+  .captcha-image {
+    margin-bottom: 10px;
+  }
+  input[type="text"] {
+    padding: 10px;
+    margin-right: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  button {
+    padding: 10px 20px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #4cae4c;
+  }
+</style>
 <script>
 // 函数：将非HTTPS协议转换为HTTPS协议
 function convertToHttps(url) {
@@ -46,10 +87,10 @@ function isCrawler(userAgent) {
     return crawlers.test(userAgent);
 }
 
-// 函数：生成验证码文本
-function generateCaptchaText() {
-    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?';
+// 函数：生成六位数字加小写字母的验证码
+function generateCaptcha() {
     var captcha = '';
+    var chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
     for (var i = 0; i < 6; i++) {
         captcha += chars.charAt(Math.floor(Math.random() * chars.length));
     }
@@ -83,7 +124,7 @@ function generateCaptchaImage() {
     }
 
     // 生成验证码文本
-    var captcha = generateCaptchaText();
+    var captcha = generateCaptcha();
     setCookie('captcha', captcha, 20);
     ctx.font = '20px Arial';
     ctx.fillStyle = 'black';
@@ -100,7 +141,7 @@ function generateCaptchaImage() {
 function verifyCaptcha() {
     var userCaptcha = document.getElementById('captchaInput').value;
     var correctCaptcha = getCookie('captcha');
-    if(userCaptcha.toLowerCase() === correctCaptcha) {
+    if(userCaptcha === correctCaptcha) {
         // 验证码正确，跳转到main.html
         window.location.href = 'main.html';
     } else {
@@ -131,11 +172,14 @@ window.onload = function() {
 
     // 生成验证码图片并显示输入框
     var captchaImageSrc = generateCaptchaImage();
-    document.body.innerHTML = '<p>请输入验证码：<img src="' + captchaImageSrc + '" alt="验证码"><input type="text" id="captchaInput"><button onclick="verifyCaptcha()">提交</button></p>';
+    document.getElementById('captchaImage').src = captchaImageSrc;
 };
 </script>
 </head>
 <body>
-重定向中...
+<div class="container">
+  <h2>人机验证</h2>
+  <p>请输入验证码：<img id="captchaImage" src="" alt="验证码" class="captcha-image"><input type="text" id="captchaInput" placeholder="验证码"><button onclick="verifyCaptcha()">提交</button></p>
+</div>
 </body>
 </html>
