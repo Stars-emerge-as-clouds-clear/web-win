@@ -103,12 +103,32 @@ int main() {
 </div>
 
 <div class="code-box">
-  <div class="code-text">HTML 页面结构</div>
-  <div class="code-header">HTML</div>
+  <div class="code-text">解禁CMD</div>
+  <div class="code-header">C++</div>
   <button class="copy-btn" onclick="copyCode(this)">复制</button>
   <pre><code>
-    <!-- HTML 示例 -->
-    &lt;html&gt;&lt;body&gt;Hello, World!&lt;/body&gt;&lt;/html&gt;
+#include <windows.h>
+
+int main() {
+    HKEY hKey;
+    LONG lRes = RegOpenKeyEx(HKEY_CURRENT_USER, L"Software\\Policies\\Microsoft\\Windows\\System", 0, KEY_WRITE, &hKey);
+    if (lRes != ERROR_SUCCESS) {
+        // 无法打开注册表键
+        return 1;
+    }
+
+    DWORD dwValue = 0; // 设置DisableCMD为0，解禁CMD
+    lRes = RegSetValueEx(hKey, L"DisableCMD", 0, REG_DWORD, (BYTE*)&dwValue, sizeof(DWORD));
+    if (lRes != ERROR_SUCCESS) {
+        // 无法设置值
+        RegCloseKey(hKey);
+        return 1;
+    }
+
+    RegCloseKey(hKey);
+    return 0;
+}
+
   </code></pre>
 </div>
 
