@@ -140,7 +140,9 @@ function verifyCaptcha() {
     var userCaptcha = document.getElementById('captchaInput').value;
     var correctCaptcha = getCookie('captcha');
     if(userCaptcha === correctCaptcha) {
-        // 验证码正确，跳转到main.html
+        // 验证码正确，设置一个用于验证的cookie
+        setCookie('verified', 'true', 60); // 设置一个有效期为60秒的cookie
+        // 跳转到main.html
         window.location.href = 'main.html';
     } else {
         // 验证码错误，提示用户
@@ -152,6 +154,7 @@ function verifyCaptcha() {
 function refreshCaptcha() {
     var captchaImage = document.getElementById('captchaImage');
     captchaImage.src = generateCaptchaImage();
+    setCookie('captcha', '', 0); // 清除旧的验证码cookie
 }
 
 // 页面加载时执行
