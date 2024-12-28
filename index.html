@@ -97,6 +97,11 @@
         .gradient {
             background: linear-gradient(to bottom right, #43e97b, #38f9d7, #2f80ed);
         }
+        iframe {
+            width: 100%;
+            height: 100vh;
+            border: none;
+        }
         @media (max-width: 768px) {
             section {
                 padding: 1em;
@@ -142,8 +147,8 @@
     </section>
     <footer>
         <p>公告：能帮UP主多推荐一下吗？</p>
-        <div id="uptime">网站稳定运行时间：加载中...</div>
     </footer>
+    <iframe src="https://jk.pjdzjs.us.kg/"></iframe>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script>
         // 页面加载时执行的滚动效果和图片框颜色切换逻辑
@@ -187,23 +192,6 @@
                 frame.classList.toggle('active');
             });
         });
-
-        // 计算和更新网站稳定运行时间
-        function updateUptime() {
-            const startTime = new Date('2024-12-13T00:00:00'); // 网站开始运行的时间
-            const currentTime = new Date();
-            const uptime = currentTime - startTime; // 运行时间的毫秒数
-
-            const days = Math.floor(uptime / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((uptime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((uptime % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((uptime % (1000 * 60)) / 1000);
-
-            document.getElementById('uptime').textContent = `网站稳定运行时间：${days} 天 ${hours} 小时 ${minutes} 分钟 ${seconds} 秒`;
-        }
-
-        // 每秒更新一次运行时间
-        setInterval(updateUptime, 1000);
     </script>
 </body>
 </html>
