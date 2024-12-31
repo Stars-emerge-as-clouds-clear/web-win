@@ -4,194 +4,164 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>破解电子教室 - 官网</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="windows1.gif" type="image/gif">
     <style>
         body, html {
-            font-family: 'Noto Sans SC', Arial, sans-serif;
             margin: 0;
             padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: #000;
+            color: #fff;
+            font-size: 16px;
             overflow-x: hidden;
-            scroll-behavior: smooth;
-            transition: background-color 1s ease;
+            line-height: 1.6;
         }
-        section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 2em;
-            opacity: 0;
-            transition: opacity 1s ease, filter 3s ease;
-            position: relative;
-        }
-        section.active {
-            opacity: 1;
+        * {
+            box-sizing: border-box;
         }
         header {
-            position: fixed;
-            top: 0;
-            width: 100%;
+            background: #0f0f0f;
+            color: #fff;
+            height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
-            padding: 1em;
-            background-color: rgba(255, 255, 255, 0.9);
-            z-index: 100;
-        }
-        header h1 {
-            margin: 0;
-        }
-        .logo {
-            width: 100px;
-            height: auto;
+            align-items: center;
+            text-align: center;
         }
         nav {
-            display: none;
+            background: #1a1a1a;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            z-index: 10;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 0 20px;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+        }
+        nav a:hover {
+            background: #2c3e50;
+        }
+        section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 2s ease-out, transform 2s ease-out;
+            transform: translateY(20px);
+        }
+        section.animated {
+            opacity: 1;
+            transform: translateY(0);
         }
         footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+            background: #000;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
-            padding: 1em;
-            background-color: rgba(255, 255, 255, 0.9);
+            align-items: center;
         }
-        footer p {
-            margin: 0;
-        }
-        .button {
-            display: inline-block;
-            background-color: #1e40af;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 20px;
-            transition: background-color 0.3s, transform 0.3s;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .button:hover {
-            background-color: #003580;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            transform: translateY(-2px);
-        }
-        .image-frame {
-            width: 80px;
-            height: 80px;
-            background-size: cover;
-            display: inline-block;
-            margin-top: 20px;
-            transition: filter 2s ease; /* 将渐变时间设置为2秒 */
-        }
-        .image-frame.active {
-            filter: grayscale(100%);
-        }
-        .image-container {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            flex-wrap: wrap;
-        }
-        .gradient {
-            background: linear-gradient(to bottom right, #43e97b, #38f9d7, #2f80ed);
+        .gradient-text {
+            background: -webkit-linear-gradient(#3498db, #9b59b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         iframe {
-            width: 100%;
-            height: 100vh;
+            width: 80%;
+            height: 80vh;
             border: none;
         }
-        @media (max-width: 768px) {
-            section {
-                padding: 1em;
-            }
-            .logo {
-                width: 80px;
-            }
-            .image-frame {
-                width: 100%;
-                height: auto;
-                margin-right: 0;
-            }
+        .button {
+            background: #3498db;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 20px 0;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background: #2980b9;
         }
     </style>
 </head>
 <body>
     <header>
-        <img src="windows1.gif" alt="Logo" class="logo">
         <h1>云散皆星河</h1>
+        <p class="gradient-text">一个专注于破解电子教室的UP主</p>
     </header>
-    <section id="intro" class="gradient">
+    <section id="home">
         <h2>欢迎来到云散皆星河</h2>
-        <p>一个专注于破解电子教室的UP主</p>
-        <a href="https://space.bilibili.com/3494352290581232" class="button" target="_blank">进入B站主页</a>
+        <p>我们致力于提供安全、有效的解决方案，帮助用户摆脱电子教室软件的限制，提供多种系统工具解禁。</p>
+        <p>进入B站主页了解更多信息。</p>
     </section>
-    <section id="about" class="gradient">
-        <h2>关于我们</h2>
-        <p>我们致力于提供安全、有效的解决方案，帮助用户摆脱电子教室软件的限制,提供多种系统工具解禁。</p>
-        <div class="image-container">
-            <div class="image-frame" id="about-image1" style="background-image: url('https://img3.downza.cn/download/201810/150751-5bc982c773d0b.JPG');"></div>
-            <div class="image-frame" id="about-image2" style="background-image: url('https://img.ddooo.com/logo/20240806/da353ea27deb36fdd8144f97719504d8.jpg');"></div>
-        </div>
-    </section>
-    <section id="services" class="gradient">
+    <section id="services" class="section-fade">
         <h2>我们的服务</h2>
-        <p>提供多种电子教室破解工具，严格测试，支持破解极域电子教室、红蜘蛛电子教室、伽卡他卡电子教室等多种电子教室,支持学生机房管理助手!</p>
-        <a href="https://download.pjdzjs.us.kg/" class="button" target="_blank">下载软件及附属软件</a>
+        <p>提供多种电子教室破解工具，严格测试，支持破解极域电子教室、红蜘蛛电子教室、伽卡他卡电子教室等多种电子教室，支持学生机房管理助手！</p>
+        <button class="button">下载软件</button>
     </section>
-    <section id="contact" class="gradient">
+    <section id="about" class="section-fade">
+        <h2>关于我们</h2>
+        <p>我们相信技术可以改变世界，因此我们致力于开发和提供最先进的技术解决方案。</p>
+    </section>
+    <section id="contact" class="section-fade">
         <h2>联系我们</h2>
         <p>有任何问题或建议，欢迎通过我们的联系方式与我们取得联系。</p>
-        <a href="https://qm.qq.com/q/ekdF63GJUs" class="button" target="_blank">加入粉丝群</a>
+   <button class="button" onclick="window.open('https://qm.qq.com/q/ekdF63GJUs', '_blank'); return false;">加入粉丝群</button>
+    </section>
+    <section id="preview">
+        <h2>我们的站点监测</h2>
+        <p>所有人都可以查看我们网站的运行情况,我们从不会隐瞒事实!</p>
+        <iframe src="https://jk.pjdzjs.us.kg/" frameborder="0"></iframe>
     </section>
     <footer>
-        <p>公告：元旦会网页大更新!</p>
+        <p>&copy; 2024 云散皆星河. All rights reserved.</p>
     </footer>
-    <iframe src="https://jk.pjdzjs.us.kg/"></iframe>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script>
-        // 页面加载时执行的滚动效果和图片框颜色切换逻辑
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('section');
-            let currentActive = null;
+        document.addEventListener('DOMContentLoaded', function() {
+            var sections = document.querySelectorAll('section');
+            var animationDelay = 1000; // Delay in milliseconds
 
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                const sectionBottom = sectionTop + sectionHeight;
-
-                if (pageYOffset >= sectionTop - window.innerHeight / 2 && pageYOffset < sectionBottom - window.innerHeight / 2) {
-                    if (currentActive !== section) {
-                        document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-                        section.classList.add('active');
-                        currentActive = section;
-
-                        document.body.classList.remove('gradient-1', 'gradient-2', 'gradient-3');
-                        const gradientClass = `gradient-${section.id.split('')[0]}`;
-                        document.body.classList.add(gradientClass);
-
-                        if (section.id === 'about') {
-                            const imageFrames = document.querySelectorAll('#about .image-frame');
-                            setTimeout(() => {
-                                imageFrames.forEach(frame => {
-                                    frame.classList.add('active');
-                                });
-                            }, 1000); // 1秒后开始渐变
-                        }
+            function updateAnimation() {
+                sections.forEach(function(section) {
+                    var sectionTop = section.getBoundingClientRect().top;
+                    var sectionVisible = sectionTop >= -window.innerHeight && sectionTop <= window.innerHeight;
+                    if (sectionVisible && !section.classList.contains('animated')) {
+                        setTimeout(function() {
+                            section.classList.add('animated');
+                        }, animationDelay);
+                    } else if (!sectionVisible && section.classList.contains('animated')) {
+                        setTimeout(function() {
+                            section.classList.remove('animated');
+                        }, animationDelay);
                     }
-                } else {
-                    section.classList.remove('active');
-                }
-            });
-        });
+                });
+            }
 
-        // 添加点击事件监听器，切换图片框的颜色
-        document.querySelectorAll('.image-frame').forEach(frame => {
-            frame.addEventListener('click', () => {
-                frame.classList.toggle('active');
-            });
+            window.addEventListener('scroll', updateAnimation);
+            updateAnimation(); // Run on initial load
         });
     </script>
 </body>
