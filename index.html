@@ -54,26 +54,17 @@
             background: #2c3e50;
         }
         section {
-            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            opacity: 0;
-            transition: opacity 2s ease-out, transform 2s ease-out;
-            transform: translateY(20px);
-        }
-        section.animated {
-            opacity: 1;
-            transform: translateY(0);
         }
         footer {
             background: #000;
             color: #fff;
             text-align: center;
             padding: 20px 0;
-            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -105,6 +96,28 @@
         .button:hover {
             background: #2980b9;
         }
+        table {
+            width: 100%;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            border-collapse: collapse;
+        }
+        th, td {
+            text-align: center;
+            vertical-align: middle;
+            padding: 10px;
+        }
+        img {
+            width: 500px;
+            height: 300px;
+            object-fit: cover;
+        }
+        .caption {
+            font-size: 18px;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -115,58 +128,58 @@
     <section id="home">
         <h2>作者:云散皆星河</h2>
         <p>我们致力于提供安全、有效的解决方案，帮助用户摆脱电子教室软件的限制，提供多种系统工具解禁。</p>
-        <button class="button" onclick="window.open('https://space.bilibili.com/3494352290581232?spm_id_from=333.1007.0.0', '_blank'); return false;">B站主页</button>
+        <button class="button" onclick="window.open('https://space.bilibili.com/3494352290581232?spm_id_from=333.1007.0.0&#39;,  '_blank'); return false;">B站主页</button>
     </section>
-    <section id="services" class="section-fade">
+    <section id="services">
         <h2>我们的服务</h2>
         <p>提供多种电子教室破解工具，严格测试，支持破解极域电子教室、红蜘蛛电子教室、伽卡他卡电子教室等多种电子教室，支持学生机房管理助手！</p>
         <p>为极域电子教室、红蜘蛛电子教室、伽卡他卡电子教室贴心的制作了特殊皮肤！</p>
- <button class="button" onclick="window.open('https://download.pjdzjs.us.kg/', '_blank'); return false;">下载相关软件</button>
+        <button class="button" onclick="window.open('https://download.pjdzjs.us.kg/&#39;,  '_blank'); return false;">下载相关软件</button>
+        <!-- 四宫格图片和描述开始 -->
+        <table>
+            <tr>
+                <td>
+                    <img src="https://download.pjdzjs.us.kg/t1.png" alt="Image 1">
+                    <div class="caption">图片1描述</div>
+                </td>
+                <td>
+                    <img src="https://download.pjdzjs.us.kg/t2.png" alt="Image 2">
+                    <div class="caption">图片2描述</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="https://download.pjdzjs.us.kg/t3.png" alt="Image 3">
+                    <div class="caption">图片3描述</div>
+                </td>
+                <td>
+                    <img src="https://download.pjdzjs.us.kg/t4.png" alt="Image 4">
+                    <div class="caption">图片4描述</div>
+                </td>
+            </tr>
+        </table>
+        <!-- 四宫格图片和描述结束 -->
     </section>
-    <section id="about" class="section-fade">
+    <section id="about">
         <h2>报毒?</h2>
         <p>声明: 本站提供的工具程序不包含任何病毒，如遇杀毒软件报毒均为误判。</p>
         <p>本软件使用易语言编写,由于其特性...故容易报毒</p>
-        <p>我们正在努力规避杀毒软件的数据库,到目前来说,已测杀毒软件只有卡巴斯基和某些云沙箱报毒</p>
-        <p>我们正在尝试使用壳和代码混淆来规避杀毒软件,但还在研究</p>
+        <p>我们正在努力规避杀毒软件的数据库</p>
+        <p>到目前来说,已测杀毒软件只有卡巴斯基和某些云沙箱报毒</p>
+        <p>我们正在尝试使用壳和代码混淆来规避杀毒软件,但还在研究中</p>
     </section>
-    <section id="contact" class="section-fade">
+    <section id="contact">
         <h2>联系我们</h2>
         <p>有任何问题或建议，欢迎通过我们的联系方式与我们取得联系。</p>
-   <button class="button" onclick="window.open('https://qm.qq.com/q/ekdF63GJUs', '_blank'); return false;">加入粉丝群</button>
+        <button class="button" onclick="window.open('https://qm.qq.com/q/ekdF63GJUs&#39;,  '_blank'); return false;">加入粉丝群</button>
     </section>
     <section id="preview">
         <h2>我们的站点监测</h2>
         <p>所有人都可以查看我们网站的运行情况,我们从不会隐瞒事实!</p>
-        <iframe src="https://jk.pjdzjs.us.kg/" frameborder="0"></iframe>
+        <iframe src="https://jk.pjdzjs.us.kg/&#34;  frameborder="0"></iframe>
     </section>
     <footer>
         <p>&copy; 2024 云散皆星河. All rights reserved.</p>
     </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var sections = document.querySelectorAll('section');
-            var animationDelay = 1000; // Delay in milliseconds
-
-            function updateAnimation() {
-                sections.forEach(function(section) {
-                    var sectionTop = section.getBoundingClientRect().top;
-                    var sectionVisible = sectionTop >= -window.innerHeight && sectionTop <= window.innerHeight;
-                    if (sectionVisible && !section.classList.contains('animated')) {
-                        setTimeout(function() {
-                            section.classList.add('animated');
-                        }, animationDelay);
-                    } else if (!sectionVisible && section.classList.contains('animated')) {
-                        setTimeout(function() {
-                            section.classList.remove('animated');
-                        }, animationDelay);
-                    }
-                });
-            }
-
-            window.addEventListener('scroll', updateAnimation);
-            updateAnimation(); // Run on initial load
-        });
-    </script>
 </body>
 </html>
