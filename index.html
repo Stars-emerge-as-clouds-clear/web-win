@@ -119,7 +119,7 @@
             font-size: 18px;
             color: #fff;
         }
-        .ad-modal {
+        .info-modal {
             position: fixed;
             top: 0;
             left: 0;
@@ -132,7 +132,7 @@
             z-index: 1000;
             backdrop-filter: blur(5px);
         }
-        .ad-modal-content {
+        .info-modal-content {
             background: #fff;
             color: #000;
             padding: 20px;
@@ -141,7 +141,7 @@
             width: 80%;
             max-width: 600px;
         }
-        .ad-modal-button {
+        .info-modal-button {
             background: #3498db;
             color: #fff;
             border: none;
@@ -150,10 +150,10 @@
             cursor: pointer;
             border-radius: 5px;
         }
-        .ad-modal-button:hover {
+        .info-modal-button:hover {
             background: #2980b9;
         }
-        .ad-container {
+        .content-container {
             position: fixed;
             bottom: 20px;
             right: 20px;
@@ -168,13 +168,13 @@
             justify-content: center;
             align-items: center;
         }
-        .ad-container img {
+        .content-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             cursor: pointer;
         }
-        .ad-page-indicator {
+        .content-page-indicator {
             position: fixed;
             bottom: 20px;
             left: 20px;
@@ -184,18 +184,18 @@
     </style>
 </head>
 <body>
-    <div class="ad-modal" id="adModal">
-        <div class="ad-modal-content">
-            <h2>是否观看广告？</h2>
-            <p>广告不会影响网页的正常使用，所有广告收入将用于UP主的下一个项目，因为该项目需要云服务器。根据收入情况，我们将租用相应天数的服务器。如果收入不足以支付服务器费用，我们会将全部收入用于公益项目。如果您不同意，请点击“去掉广告”。</p>
-            <button class="ad-modal-button" onclick="showAds()">同意</button>
-            <button class="ad-modal-button" onclick="removeAds()">去掉广告</button>
+    <div class="info-modal" id="infoModal">
+        <div class="info-modal-content">
+            <h2>是否查看信息？</h2>
+            <p>查看信息不会影响网页的正常使用，所有信息展示收入将用于UP主的下一个项目，因为该项目需要云服务器。根据收入情况，我们将租用相应天数的服务器。如果收入不足以支付服务器费用，我们会将全部收入用于公益项目。如果您不同意，请点击“隐藏信息”。</p>
+            <button class="info-modal-button" onclick="showContents()">同意</button>
+            <button class="info-modal-button" onclick="removeContents()">隐藏信息</button>
         </div>
     </div>
-    <div class="ad-container" id="adContainer" style="display: none;">
-        <img src="https://example.com/gg1.jpg" alt="Ad 1" id="adImage" onclick="window.open('https://example.com/ad1', '_blank')">
+    <div class="content-container" id="contentContainer" style="display: none;">
+        <img src="https://example.com/gg1.jpg" alt="Content 1" id="contentImage" onclick="window.open('https://example.com/ad1', '_blank')">
     </div>
-    <div class="ad-page-indicator" id="adPageIndicator">1/4</div>
+    <div class="content-page-indicator" id="contentPageIndicator">1/4</div>
     <header>
         <h1>破解电子教室官网</h1>
         <p class="gradient-text">一个破解电子教室的通用软件</p>
@@ -234,118 +234,118 @@
         </table>
     </section>
     <section id="services1">
-        <h2>老师安装了学生机房管理助手？我会出手！</h2>随着学生机房管理助手的不断更新，本软件也迭代了3个大版本</p>
-<p>从7.9到最新的9.99（到写文案时），本软件一直陪伴在助手的左右！</p>
-<p>本软件使用的助手专杀方案经过2年沉淀，1年磨砺</p>
-<p>不断改善、优化，现已兼容所有的助手版本！（到写文案时的9.99，部分版本未测试）</p>
-<p>我们在过去、现在、未来都会陪伴助手继续走下去！</p>
-<p>加油!!!</p>
-<img src="https://download.pjdzjs.us.kg/t5.png" alt="Image 5">
-</section>
-<section id="about1">
-<h2>关于报毒</h2>
-<p>声明：本站提供的工具程序不包含任何病毒，如遇杀毒软件报毒均为误判。</p>
-<p>本软件使用易语言编写，由于其特性，故容易报毒。</p>
-<p>我们正在努力规避杀毒软件的数据库中的某些病毒特征码。</p>
-<p>目前来说，已测杀毒软件只有卡巴斯基和某些云沙箱报毒。</p>
-<p>我们正在尝试使用壳和代码混淆来规避杀毒软件，但还在研究中。</p>
-</section>
-<section id="about2">
-<h2>付费？免费！</h2>
-<p>声明：本站提供的工具程序免费无广，如遇收费或广告的均不是官方版本</p>
-<p>部分魔改版本可能带有后门，请使用本站提供的官方版本。</p>
-<p>本软件未在任何店铺或渠道售卖！</p>
-</section>
-<section id="contact">
-<h2>联系我们</h2>
-<p>有任何问题或建议，欢迎通过我们的联系方式与我们取得联系。</p>
-<button class="button" onclick="window.open('https://qm.qq.com/q/ekdF63GJUs', '_blank'); return false;">加入粉丝群</button>
-</section>
-<section id="preview">
-<h2>我们的站点监测</h2>
-<p>所有人都可以查看我们网站的运行情况，我们从不会隐瞒事实！</p>
-<iframe src="https://jk.pjdzjs.us.kg/" frameborder="0"></iframe>
-</section>
-<footer>
-<p>© 2024 云散皆星河. All rights reserved.</p>
-</footer>
-<script>
-function setCookie(name, value, days) {
-    var expires = "";
-    if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        expires = "; expires=" + date.toUTCString();
-    }
-    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-}
-
-function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-    }
-    return null;
-}
-
-function showAds() {
-    setCookie('showAds', 'true', 5);
-    document.getElementById('adModal').style.display = 'none';
-    document.getElementById('adContainer').style.display = 'block';
-    startAdCarousel();
-}
-
-function removeAds() {
-    setCookie('showAds', 'false', 5);
-    document.getElementById('adModal').style.display = 'none';
-    document.getElementById('adContainer').style.display = 'none';
-}
-
-function startAdCarousel() {
-    var adImages = [
-        { src: 'ggzs.gif', link: 'ggzs.html' },
-        { src: 'ggzs.gif', link: 'ggzs.html' },        
-        { src: 'ggzs.gif', link: 'ggzs.html' },
-        { src: 'ggzs.gif', link: 'ggzs.html' }
-    ];
-    var currentAd = 0;
-    var adImageElement = document.getElementById('adImage');
-    var adPageIndicator = document.getElementById('adPageIndicator');
-
-    function updateAd() {
-        adImageElement.src = adImages[currentAd].src;
-        adImageElement.onclick = function() { window.open(adImages[currentAd].link, '_blank'); };
-        adPageIndicator.textContent = (currentAd + 1) + '/4';
+        <h2>老师安装了学生机房管理助手？我会出手！</h2>
+        <p>随着学生机房管理助手的不断更新，本软件也迭代了3个大版本</p>
+        <p>从7.9到最新的9.99（到写文案时），本软件一直陪伴在助手的左右！</p>
+        <p>本软件使用的助手专杀方案经过2年沉淀，1年磨砺</p>
+        <p>不断改善、优化，现已兼容所有的助手版本！（到写文案时的9.99，部分版本未测试）</p>
+        <p>我们在过去、现在、未来都会陪伴助手继续走下去！</p>
+        <p>加油!!!</p>
+        <img src="https://download.pjdzjs.us.kg/t5.png" alt="Image 5">
+    </section>
+    <section id="about1">
+        <h2>关于报毒</h2>
+        <p>声明：本站提供的工具程序不包含任何病毒，如遇杀毒软件报毒均为误判。</p>
+        <p>本软件使用易语言编写，由于其特性，故容易报毒。</p>
+        <p>我们正在努力规避杀毒软件的数据库中的某些病毒特征码。</p>
+        <p>目前来说，已测杀毒软件只有卡巴斯基和某些云沙箱报毒。</p>
+        <p>我们正在尝试使用壳和代码混淆来规避杀毒软件，但还在研究中。</p>
+    </section>
+    <section id="about2">
+        <h2>付费？免费！</h2>
+        <p>声明：本站提供的工具程序免费无广，如遇收费或广告的均不是官方版本</p>
+        <p>部分魔改版本可能带有后门，请使用本站提供的官方版本。</p>
+        <p>本软件未在任何店铺或渠道售卖！</p>
+    </section>
+    <section id="contact">
+        <h2>联系我们</h2>
+        <p>有任何问题或建议，欢迎通过我们的联系方式与我们取得联系。</p>
+        <button class="button" onclick="window.open('https://qm.qq.com/q/ekdF63GJUs', '_blank'); return false;">加入粉丝群</button>
+    </section>
+    <section id="preview">
+        <h2>我们的站点监测</h2>
+        <p>所有人都可以查看我们网站的运行情况，我们从不会隐瞒事实！</p>
+        <iframe src="https://jk.pjdzjs.us.kg/" frameborder="0"></iframe>
+    </section>
+    <footer>
+        <p>© 2024 云散皆星河. All rights reserved.</p>
+    </footer>
+    <script>
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "")  + expires + "; path=/";
     }
 
-    function nextAd() {
-        currentAd = (currentAd + 1) % adImages.length;
-        updateAd();
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
     }
 
-    setInterval(nextAd, 7000); // 每7秒自动切换一次广告
-    updateAd(); // 初始化显示第一个广告
-}
+    function showContents() {
+        setCookie('showContents', 'true', 5);
+        document.getElementById('infoModal').style.display = 'none';
+        document.getElementById('contentContainer').style.display = 'block';
+        startContentCarousel();
+    }
 
-window.onload = function() {
-    if (getCookie('reloaded') !== 'true') {
-        setCookie('reloaded', 'true', 1);
-        location.reload();
-    } else {
-        if (getCookie('showAds') === 'true') {
-            document.getElementById('adContainer').style.display = 'block';
-            startAdCarousel();
-        } else if (getCookie('showAds') === 'false') {
-            document.getElementById('adContainer').style.display = 'none';
+    function removeContents() {
+        setCookie('showContents', 'false', 5);
+        document.getElementById('infoModal').style.display = 'none';
+        document.getElementById('contentContainer').style.display = 'none';
+    }
+
+    function startContentCarousel() {
+        var contentImages = [
+            { src: 'ggzs.gif', link: 'ggzs.html' },
+            { src: 'ggzs.gif', link: 'ggzs.html' },        
+            { src: 'ggzs.gif', link: 'ggzs.html' },
+            { src: 'ggzs.gif', link: 'ggzs.html' }
+        ];
+        var currentContent = 0;
+        var contentImageElement = document.getElementById('contentImage');
+        var contentPageIndicator = document.getElementById('contentPageIndicator');
+
+        function updateContent() {
+            contentImageElement.src = contentImages[currentContent].src;
+            contentImageElement.onclick = function() { window.open(contentImages[currentContent].link, '_blank'); };
+            contentPageIndicator.textContent = (currentContent + 1) + '/4';
+        }
+
+        function nextContent() {
+            currentContent = (currentContent + 1) % contentImages.length;
+            updateContent();
+        }
+
+        setInterval(nextContent, 7000); // 每7秒自动切换一次内容
+        updateContent(); // 初始化显示第一个内容
+    }
+
+    window.onload = function() {
+        if (getCookie('reloaded') !== 'true') {
+            setCookie('reloaded', 'true', 1);
+            location.reload();
         } else {
-            document.getElementById('adModal').style.display = 'flex';
+            if (getCookie('showContents') === 'true') {
+                document.getElementById('contentContainer').style.display = 'block';
+                startContentCarousel();
+            } else if (getCookie('showContents') === 'false') {
+                document.getElementById('contentContainer').style.display = 'none';
+            } else {
+                document.getElementById('infoModal').style.display = 'flex';
+            }
         }
     }
-}
-</script>
+    </script>
 </body>
 </html>
-
