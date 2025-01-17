@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>免责声明</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e3f2fd;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 600px;
+        }
+        h1 {
+            color: #1565c0;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #424242;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+        .checkbox-container {
+            margin: 20px 0;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        button {
+            background-color: #1e88e5;
+            color: white;
+            padding: 12px 26px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1976d2;
+        }
+        .disclaimer {
+            margin-top: 30px;
+            color: #9e9e9e;
+            font-size: 12px;
+        }
+    </style>
+    <script>
+        function redirectToDownload() {
+            var checkbox = document.getElementById("agreeCheckbox");
+            if (checkbox.checked) {
+                window.location.href = "https://download.pjdzjs.us.kg/";
+            } else {
+                alert("您必须同意免责声明才能继续。");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>免责声明</h1>
+        <p>本软件用于学习机房常用软件的运行机制和原理，禁止用于任何非法用途。请谨慎在他人及公共设备上使用。本软件含有危险功能，操作不当可能导致计算机数据丢失、软件损坏甚至硬件损坏等后果。使用本软件造成的一切后果由用户自行承担。</p>
+        <p><strong>重要提示：</strong>在使用本软件前，请确保您已经充分理解其功能和潜在风险。如果您不确定如何安全使用本软件，建议不要下载或安装。</p>
+        <div class="checkbox-container">
+            <input type="checkbox" id="agreeCheckbox">
+            <label for="agreeCheckbox">我已了解以上风险并愿意承担使用软件造成的一切后果</label>
+        </div>
+        <button onclick="redirectToDownload()">同意并跳转</button>
+        <div class="disclaimer">
+            <p>版权所有 © 2025 保留所有权利。</p>
+        </div>
+    </div>
+</body>
+</html>
