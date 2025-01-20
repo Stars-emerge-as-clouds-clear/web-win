@@ -10,24 +10,31 @@
             margin: 0;
             padding: 0;
             font-family: 'Arial', sans-serif;
-            background: #000;
-            color: #fff;
             font-size: 16px;
-            overflow-x: hidden;
             line-height: 1.6;
+            overflow-x: hidden;
+            cursor: url('cursor.png'), auto; /* 设置自定义鼠标图标 */
         }
         * {
             box-sizing: border-box;
         }
         header {
-            background: #0f0f0f;
-            color: #fff;
+            background: none; 
+            color: #000; 
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+        }
+        header h1 {
+            font-size: 3rem; /* 放大标题文字大小 */
+            text-shadow: 2px 2px 4px #fff, -2px -2px 4px #fff, 2px -2px 4px #fff, -2px 2px 4px #fff;
+        }
+        header p {
+            font-size: 1.2rem; 
+            text-shadow: 2px 2px 4px #fff, -2px -2px 4px #fff, 2px -2px 4px #fff, -2px 2px 4px #fff;
         }
         nav {
             background: #1a1a1a;
@@ -46,7 +53,7 @@
             margin: 0 20px;
         }
         nav a {
-            color: #fff;
+            color: #fff; 
             text-decoration: none;
             padding: 10px;
         }
@@ -61,9 +68,13 @@
             text-align: center;
             margin-bottom: 100vh; /* Full screen margin */
         }
+        section h2, section p, section .caption {
+            color: #000; /* 将所有文字颜色改为黑色 */
+            text-shadow: 2px 2px 4px #fff, -2px -2px 4px #fff, 2px -2px 4px #fff, -2px 2px 4px #fff;
+        }
         footer {
             background: #000;
-            color: #fff;
+            color: #fff; /* 页脚文字颜色保持为白色 */
             text-align: center;
             padding: 20px 0;
             display: flex;
@@ -77,8 +88,6 @@
             -webkit-text-fill-color: transparent;
         }
         iframe {
-            width: 80%;
-            height: 80vh;
             border: none;
         }
         .button {
@@ -117,11 +126,14 @@
         }
         .caption {
             font-size: 18px;
-            color: #fff;
         }
     </style>
 </head>
 <body>
+    <iframe src="https://api.r10086.com/PPT/PPT.php?PPT=%E5%8E%9F%E7%A5%9E" 
+            style="position: fixed; top: 0; left: 0; z-index: -1; width: 100%; height: 100%; border: none;" 
+            frameborder="0"></iframe>
+
     <header>
         <h1>破解电子教室官网</h1>
         <p class="gradient-text">一个破解电子教室的通用软件</p>
@@ -191,7 +203,7 @@
     <section id="preview">
         <h2>我们的站点监测</h2>
         <p>所有人都可以查看我们网站的运行情况，我们从不会隐瞒事实！</p>
-        <iframe src="https://jk.pjdzjs.us.kg/" frameborder="0"></iframe>
+        <iframe src="https://jk.pjdzjs.us.kg/" frameborder="0" style="width: 80%; height: 80vh;"></iframe>
     </section>
     <footer>
         <p>© 2024 云散皆星河. All rights reserved.</p>
